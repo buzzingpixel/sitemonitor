@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
+use App\Console\Controllers\CheckSitesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,7 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+Artisan::command('check-sites', function () {
+    $checkSitesController = new CheckSitesController();
+    $checkSitesController->runCheck();
+})->describe('Check status of monitored sties');

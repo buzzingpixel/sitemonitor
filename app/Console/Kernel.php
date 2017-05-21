@@ -5,33 +5,28 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+/**
+ * Class Kernel
+ */
 class Kernel extends ConsoleKernel
 {
     /**
      * The Artisan commands provided by your application.
-     *
      * @var array
      */
-    protected $commands = [
-        //
-    ];
+    // protected $commands = [];
 
     /**
-     * Define the application's command schedule.
-     *
+     * Set schedule
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('check-sites')->everyMinute()->withoutOverlapping();
     }
 
     /**
      * Register the Closure based commands for the application.
-     *
-     * @return void
      */
     protected function commands()
     {

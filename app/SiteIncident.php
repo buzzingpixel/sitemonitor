@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class NotificationEmail
+ * Class SiteIncident
  */
-class NotificationEmail extends Model
+class SiteIncident extends Model
 {
     /**
      * The table associated with the model
      * @var string
      */
-    protected $table = 'notification_emails';
+    protected $table = 'site_incidents';
 }
