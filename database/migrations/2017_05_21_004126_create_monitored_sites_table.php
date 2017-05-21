@@ -16,7 +16,7 @@ class CreateMonitoredSitesTable extends Migration
         Schema::create('monitored_sites', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->json('urls');
+            $table->string('urls');
             $table->boolean('has_error');
         });
     }
