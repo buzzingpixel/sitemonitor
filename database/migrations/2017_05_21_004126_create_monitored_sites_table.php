@@ -17,7 +17,8 @@ class CreateMonitoredSitesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('urls');
-            $table->boolean('has_error');
+            $table->boolean('has_error')->default(0);
+            $table->timestamps();
         });
     }
 

@@ -22,8 +22,8 @@ class CreateSiteIncidentsTable extends Migration
             $table->enum('event_type', [
                 'down',
                 'up'
-            ]);
-            $table->dateTime('event_time');
+            ])->default('up');
+            $table->timestamps();
         });
     }
 
