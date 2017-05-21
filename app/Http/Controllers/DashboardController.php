@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MonitoredSite;
+use App\NotificationEmail;
 use Illuminate\Http\Request;
 
 /**
@@ -26,7 +27,8 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard', [
-            'monitoredSites' => MonitoredSite::all()
+            'monitoredSites' => MonitoredSite::all(),
+            'notificationEmails' => NotificationEmail::all()
         ]);
     }
 
@@ -106,6 +108,46 @@ class DashboardController extends Controller
     {
         // Delete the site
         $monitoredSite->delete();
+
+        // Redirect to the dashboard
+        return redirect('/dashboard');
+    }
+
+    /**
+     * Add email
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function addEmail()
+    {
+        // Make sure we have name and urls
+        if (! request('email')) {
+            throw new \Exception('"email" field required');
+        }
+
+        // Create a monitored site model
+        $notificationEmail = new NotificationEmail();
+
+        // Add email
+        $notificationEmail->email = request('email');
+
+        // Save the Email
+        $notificationEmail->save();
+
+        // Redirect to the dashboard
+        return redirect('/dashboard');
+    }
+
+    /**
+     * Delete email
+     * @param NotificationEmail $notificationEmail
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function deleteEmail(NotificationEmail $notificationEmail)
+    {
+        // Delete the site
+        $notificationEmail->delete();
 
         // Redirect to the dashboard
         return redirect('/dashboard');

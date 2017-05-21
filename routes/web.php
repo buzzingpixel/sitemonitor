@@ -27,3 +27,7 @@ Route::get('/dashboard/site/{monitoredSite}', 'DashboardController@editSite');
 Route::post('/dashboard/site/{monitoredSite}', 'DashboardController@updateSite');
 
 Route::post('/dashboard/site/delete/{monitoredSite}', 'DashboardController@deleteSite');
+
+Route::post('/dashboard/email', 'DashboardController@addEmail');
+
+Route::get('/dashboard/email/{notificationEmail}', 'DashboardController@deleteEmail');
