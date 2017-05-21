@@ -5,10 +5,23 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Add monitored Site</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    <form method="POST" action="/dashboard">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="name">Site Name</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="My Cool Site">
+                        </div>
+                        <div class="form-group">
+                            <label for="urls">Site URLs to check</label>
+                            <input type="text" name="urls" id="urls" class="form-control" placeholder="https://site1.com, https://site2.com">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Add Site</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

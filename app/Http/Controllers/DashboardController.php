@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MonitoredSite;
 use Illuminate\Http\Request;
 
 /**
@@ -25,5 +26,31 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard');
+    }
+
+    /**
+     * Create site
+     */
+    public function createSite()
+    {
+        // Make sure we have name and urls
+        if (! request('name') || ! request('urls')) {
+            throw new \Exception('"name" and "urls" field required');
+        }
+
+        // Create a monitored site model
+        $monitoredSite = new MonitoredSite();
+
+        // Add name
+        $monitoredSite->name = request('name');
+
+        // Add urls
+        $monitoredSite->urls = request('urls');
+
+        // Save the monitored site
+        $monitoredSite->save();
+
+        // Redirect to the dashboard
+        return redirect('/dashboard');
     }
 }
