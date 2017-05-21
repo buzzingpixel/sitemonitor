@@ -22,6 +22,13 @@
                             <button type="submit" class="btn btn-primary">Update Site</button>
                         </div>
                     </form>
+                    <br>
+                    <form method="POST" action="/dashboard/site/delete/{{ $monitoredSite->id }}">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">Delete Site</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

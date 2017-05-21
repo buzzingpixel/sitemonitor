@@ -71,7 +71,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Edit site
+     * Update site
      * @param MonitoredSite $monitoredSite
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Exception
@@ -91,6 +91,21 @@ class DashboardController extends Controller
 
         // Save the monitored site
         $monitoredSite->save();
+
+        // Redirect to the dashboard
+        return redirect('/dashboard');
+    }
+
+    /**
+     * Delete site
+     * @param MonitoredSite $monitoredSite
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function deleteSite(MonitoredSite $monitoredSite)
+    {
+        // Delete the site
+        $monitoredSite->delete();
 
         // Redirect to the dashboard
         return redirect('/dashboard');
