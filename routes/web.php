@@ -21,3 +21,7 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index');
 
 Route::post('/dashboard', 'DashboardController@createSite');
+
+Route::get('/dashboard/site/{monitoredSite}', 'DashboardController@editSite');
+
+Route::post('/dashboard/site/{monitoredSite}', 'DashboardController@updateSite');
