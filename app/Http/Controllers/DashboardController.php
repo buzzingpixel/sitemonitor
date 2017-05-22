@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MonitoredSite;
 use App\NotificationEmail;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -30,13 +31,16 @@ class DashboardController extends Controller
      */
     public function index(Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
         return view('dashboard', [
             'monitoredSites' => MonitoredSite::all(),
-            'notificationEmails' => NotificationEmail::all()
+            'notificationEmails' => NotificationEmail::all(),
+            'users' => User::where('id', '!=', $currentUser->id)->get()
         ]);
     }
 
@@ -186,6 +190,27 @@ class DashboardController extends Controller
 
         // Delete the site
         $notificationEmail->delete();
+
+        // Redirect to the dashboard
+        return redirect('/dashboard');
+    }
+
+    /**
+     * Update users
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function updateUsers(Guard $auth)
+    {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
+        foreach (request('users') as $userId => $userInput) {
+            $user = User::where('id', $userId)->first();
+            $user->is_admin = $userInput['is_admin'];
+            $user->save();
+        }
 
         // Redirect to the dashboard
         return redirect('/dashboard');
