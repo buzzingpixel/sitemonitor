@@ -133,7 +133,7 @@ class CheckSitesController
             // Return true if errors, false if no errors
             return $response->getStatusCode() !== 200;
         } catch (\Exception $e) {
-            return false;
+            return true;
         }
     }
 
