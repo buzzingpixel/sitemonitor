@@ -8,6 +8,7 @@ use App\SiteIncident;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Mail\Message;
 
 /**
  * Class CheckSitesController
@@ -142,7 +143,7 @@ class CheckSitesController
         foreach ($this->emails as $email) {
             \Mail::raw(
                 "{$monitoredSite->name} is {$status}",
-                function ($message) use ($monitoredSite, $status, $email) {
+                function (Message $message) use ($monitoredSite, $status, $email) {
                     $message->to($email->email);
                     $message->subject("{$monitoredSite->name} is {$status}");
                     $message->setBody("{$monitoredSite->name} is {$status}");

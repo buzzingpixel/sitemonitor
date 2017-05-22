@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\MonitoredSite;
 use App\NotificationEmail;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 
 /**
@@ -19,8 +18,6 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
-        // dd($auth->user());
     }
 
     /**
@@ -31,10 +28,11 @@ class DashboardController extends Controller
      */
     public function index(Guard $auth)
     {
+        /** @var User $currentUser */
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            throw new \Exception('User privileges do not allow access');
         }
 
         return view('dashboard', [
@@ -52,7 +50,10 @@ class DashboardController extends Controller
      */
     public function createSite(Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
@@ -86,7 +87,10 @@ class DashboardController extends Controller
      */
     public function editSite(MonitoredSite $monitoredSite, Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
@@ -104,7 +108,10 @@ class DashboardController extends Controller
      */
     public function updateSite(MonitoredSite $monitoredSite, Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
@@ -135,7 +142,10 @@ class DashboardController extends Controller
      */
     public function deleteSite(MonitoredSite $monitoredSite, Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
@@ -154,7 +164,10 @@ class DashboardController extends Controller
      */
     public function addEmail(Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
@@ -184,7 +197,10 @@ class DashboardController extends Controller
      */
     public function deleteEmail(NotificationEmail $notificationEmail, Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
@@ -202,11 +218,23 @@ class DashboardController extends Controller
      */
     public function updateUsers(Guard $auth)
     {
-        if (! $auth->user()->is_admin) {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
             throw new \Exception('User priveleges do not allow access');
         }
 
-        foreach (request('users') as $userId => $userInput) {
+        // Get users from post
+        $users = request('users');
+
+        // Make sure it's an array
+        if (! is_array($users)) {
+            $users = array();
+        }
+
+        foreach ($users as $userId => $userInput) {
+            /** @var User $user */
             $user = User::where('id', $userId)->first();
             $user->is_admin = $userInput['is_admin'];
             $user->save();
