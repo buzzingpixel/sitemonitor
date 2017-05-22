@@ -110,20 +110,24 @@ class CheckSitesController
     /**
      * Check a URL
      * @param string $url
-     * @return bool
+     * @return bool Returns true if site does not have 200 status
      */
     public function checkUrl($url)
     {
-        // Get a new Guzzle client
-        $client = new Client([
-            'http_errors' => false
-        ]);
+        try {
+            // Get a new Guzzle client
+            $client = new Client([
+                'http_errors' => false
+            ]);
 
-        // Get the URL
-        $response = $client->get($url);
+            // Get the URL
+            $response = $client->get($url);
 
-        // Return true if errors, false if no errors
-        return $response->getStatusCode() !== 200;
+            // Return true if errors, false if no errors
+            return $response->getStatusCode() !== 200;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
