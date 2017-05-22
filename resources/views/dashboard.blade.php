@@ -18,6 +18,7 @@
                                     <th>URLs to Check</th>
                                     <th>Status</th>
                                     <th>Last Checked</th>
+                                    <th>Incidents</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -28,6 +29,7 @@
                                         <td>{{ $monitoredSite->urls }}</td>
                                         <td>@if ($monitoredSite->has_error) Down @else Up @endif</td>
                                         <td>{{ $monitoredSite->last_checked }}</td>
+                                        <td><a href="/dashboard/site/incidents/{{ $monitoredSite->id }}">View</a></td>
                                         <td><a href="/dashboard/site/{{ $monitoredSite->id }}">Edit</a></td>
                                     </tr>
                                 @endforeach

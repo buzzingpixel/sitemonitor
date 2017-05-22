@@ -243,4 +243,25 @@ class DashboardController extends Controller
         // Redirect to the dashboard
         return redirect('/dashboard');
     }
+
+    /**
+     * View site incidents
+     * @param MonitoredSite $monitoredSite
+     * @param Guard $auth
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function viewSiteIncidents(MonitoredSite $monitoredSite, Guard $auth)
+    {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        if (! $currentUser->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
+        return view('siteIncidents', [
+            'monitoredSite' => $monitoredSite
+        ]);
+    }
 }
