@@ -5,6 +5,7 @@ namespace App\Console\Controllers;
 use App\MonitoredSite;
 use App\NotificationEmail;
 use App\SiteIncident;
+use Carbon\Carbon;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Collection;
@@ -74,6 +75,8 @@ class CheckSitesController
             ->orderBy('created_at', 'desc')
             ->first();
 
+        $monitoredSite->last_checked = new Carbon();
+
         // If the site has an error, we need to add a down event if it does not already exist
         if ($hasErrors) {
             if (! $latestIncident || $latestIncident->event_type !== 'down') {
@@ -81,13 +84,12 @@ class CheckSitesController
                 $latestIncident->monitored_site_id = $monitoredSite->id;
                 $latestIncident->event_type = 'down';
                 $latestIncident->save();
-
                 $monitoredSite->has_error = true;
-                $monitoredSite->save();
 
                 $this->sendNotification($monitoredSite);
             }
 
+            $monitoredSite->save();
             $this->consoleOutput->writeln("<error>{$monitoredSite->name} is down!</error>");
 
             return;
@@ -105,7 +107,11 @@ class CheckSitesController
             $monitoredSite->save();
 
             $this->sendNotification($monitoredSite);
+
+            return;
         }
+
+        $monitoredSite->save();
     }
 
     /**
