@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User privileges do not allow access');
+            return view('noaccess');
         }
 
         return view('dashboard', [
@@ -54,7 +54,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         // Make sure we have name and urls
@@ -83,7 +83,6 @@ class DashboardController extends Controller
      * @param MonitoredSite $monitoredSite
      * @param Guard $auth
      * @return array
-     * @throws \Exception
      */
     public function editSite(MonitoredSite $monitoredSite, Guard $auth)
     {
@@ -91,7 +90,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         return view('editSite', [
@@ -112,7 +111,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         // Make sure we have name and urls
@@ -146,7 +145,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         // Delete the site
@@ -168,7 +167,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         // Make sure we have name and urls
@@ -201,7 +200,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         // Delete the site
@@ -214,7 +213,6 @@ class DashboardController extends Controller
     /**
      * Update users
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function updateUsers(Guard $auth)
     {
@@ -222,7 +220,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         // Get users from post
@@ -249,7 +247,6 @@ class DashboardController extends Controller
      * @param MonitoredSite $monitoredSite
      * @param Guard $auth
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function viewSiteIncidents(MonitoredSite $monitoredSite, Guard $auth)
     {
@@ -257,7 +254,7 @@ class DashboardController extends Controller
         $currentUser = $auth->user();
 
         if (! $currentUser->is_admin) {
-            throw new \Exception('User priveleges do not allow access');
+            return view('noaccess');
         }
 
         return view('siteIncidents', [
