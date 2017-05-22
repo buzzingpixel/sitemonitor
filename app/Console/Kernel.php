@@ -22,7 +22,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('check-sites')->everyMinute()->withoutOverlapping();
+        $command = $schedule->command('check-sites')
+            ->everyMinute()
+            ->withoutOverlapping();
+
+        if (env('CHECK_SITES_PING')) {
+            $command->thenPing(env('CHECK_SITES_PING'));
+        }
     }
 
     /**
