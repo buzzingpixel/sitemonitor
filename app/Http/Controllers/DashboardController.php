@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\MonitoredSite;
 use App\NotificationEmail;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
 
 /**
  * Class Dashboard
@@ -17,15 +18,22 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        // dd($auth->user());
     }
 
     /**
      * Show the application dashboard.
-     *
+     * @param Guard $auth
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function index()
+    public function index(Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         return view('dashboard', [
             'monitoredSites' => MonitoredSite::all(),
             'notificationEmails' => NotificationEmail::all()
@@ -34,11 +42,16 @@ class DashboardController extends Controller
 
     /**
      * Create site
+     * @param Guard $auth
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function createSite()
+    public function createSite(Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         // Make sure we have name and urls
         if (! request('name') || ! request('urls')) {
             throw new \Exception('"name" and "urls" field required');
@@ -63,10 +76,16 @@ class DashboardController extends Controller
     /**
      * Edit site
      * @param MonitoredSite $monitoredSite
+     * @param Guard $auth
      * @return array
+     * @throws \Exception
      */
-    public function editSite(MonitoredSite $monitoredSite)
+    public function editSite(MonitoredSite $monitoredSite, Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         return view('editSite', [
             'monitoredSite' => $monitoredSite
         ]);
@@ -75,11 +94,16 @@ class DashboardController extends Controller
     /**
      * Update site
      * @param MonitoredSite $monitoredSite
+     * @param Guard $auth
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function updateSite(MonitoredSite $monitoredSite)
+    public function updateSite(MonitoredSite $monitoredSite, Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         // Make sure we have name and urls
         if (! request('name') || ! request('urls')) {
             throw new \Exception('"name" and "urls" field required');
@@ -101,11 +125,16 @@ class DashboardController extends Controller
     /**
      * Delete site
      * @param MonitoredSite $monitoredSite
+     * @param Guard $auth
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function deleteSite(MonitoredSite $monitoredSite)
+    public function deleteSite(MonitoredSite $monitoredSite, Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         // Delete the site
         $monitoredSite->delete();
 
@@ -115,11 +144,16 @@ class DashboardController extends Controller
 
     /**
      * Add email
+     * @param Guard $auth
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function addEmail()
+    public function addEmail(Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         // Make sure we have name and urls
         if (! request('email')) {
             throw new \Exception('"email" field required');
@@ -144,8 +178,12 @@ class DashboardController extends Controller
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function deleteEmail(NotificationEmail $notificationEmail)
+    public function deleteEmail(NotificationEmail $notificationEmail, Guard $auth)
     {
+        if (! $auth->user()->is_admin) {
+            throw new \Exception('User priveleges do not allow access');
+        }
+
         // Delete the site
         $notificationEmail->delete();
 
