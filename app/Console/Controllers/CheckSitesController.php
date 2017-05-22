@@ -28,7 +28,7 @@ class CheckSitesController
     public function __construct()
     {
         $this->consoleOutput = new ConsoleOutput();
-        $this->emails = NotificationEmail::all();
+        $this->emails = NotificationEmail::orderBy('email', 'asc')->get();
     }
 
     /**
@@ -37,7 +37,7 @@ class CheckSitesController
     public function runCheck()
     {
         // Get all monitored sites
-        $monitoredSites = MonitoredSite::all();
+        $monitoredSites = MonitoredSite::orderBy('name', 'asc')->get();
 
         // Send each site record to the checkSite method
         $monitoredSites->each([

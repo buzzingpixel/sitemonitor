@@ -36,8 +36,8 @@ class DashboardController extends Controller
         }
 
         return view('dashboard', [
-            'monitoredSites' => MonitoredSite::all(),
-            'notificationEmails' => NotificationEmail::all(),
+            'monitoredSites' => MonitoredSite::orderBy('name', 'asc')->get(),
+            'notificationEmails' => NotificationEmail::orderBy('email', 'asc')->get(),
             'users' => User::where('id', '!=', $currentUser->id)->get()
         ]);
     }
