@@ -44,7 +44,11 @@ Route::get('/noaccess', function () {
 });
 
 Route::get('/sites', 'SitesController@index');
-
 Route::post('/sites', 'SitesController@create');
 
 Route::get('/sites/incidents/{monitoredSite}', 'SitesController@showIncidents');
+
+Route::get('/sites/edit/{monitoredSite}', 'SitesController@view');
+Route::post('/sites/edit/{monitoredSite}', 'SitesController@edit');
+
+Route::post('/sites/delete/{monitoredSite}', 'SitesController@delete');

@@ -27,7 +27,6 @@ class SitesController extends Controller
     /**
      * Show the monitored sites
      * @return \Illuminate\Http\Response
-     * @throws \Exception
      */
     public function index()
     {
@@ -41,7 +40,6 @@ class SitesController extends Controller
     /**
      * Create a new site to monitor
      * @return \Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function create()
     {
@@ -84,12 +82,67 @@ class SitesController extends Controller
     /**
      * Show site incidents
      * @param MonitoredSite $monitoredSite
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function showIncidents(MonitoredSite $monitoredSite)
     {
         return view('siteIncidents', [
             'monitoredSite' => $monitoredSite
         ]);
+    }
+
+    /**
+     * View site for editing
+     * @param MonitoredSite $monitoredSite
+     * @return \Illuminate\Http\Response
+     */
+    public function view(MonitoredSite $monitoredSite)
+    {
+        return view('editSite', [
+            'monitoredSite' => $monitoredSite,
+            'postErrors' => $this->postErrors,
+            'postValues' => $this->postValues
+        ]);
+    }
+
+    /**
+     * Perform site edit
+     * @param MonitoredSite $monitoredSite
+     * @return \Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function edit(MonitoredSite $monitoredSite)
+    {
+        // Set post values
+        $this->postValues['name'] = request('name');
+        $this->postValues['urls'] = request('urls');
+
+        // Make sure we have name and urls
+        if (! request('name') || ! request('urls')) {
+            // Set name error
+            if (! request('name')) {
+                $this->postErrors['name'] = 'The "Site Name" field is required';
+            }
+
+            // Set urls error
+            if (! request('urls')) {
+                $this->postErrors['urls'] = 'The "Site URLs to check" field is required';
+            }
+
+            // Return the view
+            return $this->view($monitoredSite);
+        }
+
+        // Update name
+        $monitoredSite->name = request('name');
+
+        // Update URLs
+        $monitoredSite->urls = request('urls');
+
+        // Save the monitored site
+        $monitoredSite->save();
+
+        // Redirect to the dashboard
+        return redirect('/sites');
     }
 }
