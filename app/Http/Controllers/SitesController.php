@@ -6,7 +6,7 @@ use App\MonitoredSite;
 use App\Service\Messages;
 
 /**
- * Class Dashboard
+ * Class SitesController
  */
 class SitesController extends Controller
 {
