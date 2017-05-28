@@ -80,4 +80,16 @@ class SitesController extends Controller
         // Redirect to the sites page
         return redirect('/sites');
     }
+
+    /**
+     * Show site incidents
+     * @param MonitoredSite $monitoredSite
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function showIncidents(MonitoredSite $monitoredSite)
+    {
+        return view('siteIncidents', [
+            'monitoredSite' => $monitoredSite
+        ]);
+    }
 }

@@ -46,3 +46,5 @@ Route::get('/noaccess', function () {
 Route::get('/sites', 'SitesController@index');
 
 Route::post('/sites', 'SitesController@create');
+
+Route::get('/sites/incidents/{monitoredSite}', 'SitesController@showIncidents');
