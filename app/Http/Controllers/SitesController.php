@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MonitoredSite;
+use App\Service\Messages;
 
 /**
  * Class Dashboard
@@ -59,6 +60,16 @@ class SitesController extends Controller
                 $this->postErrors['urls'] = 'The "Site URLs to check" field is required';
             }
 
+            // Add an error message
+            if (count($this->postErrors) > 0) {
+                Messages::addMessage(
+                    'postErrors',
+                    'There were errors with your submission',
+                    $this->postErrors,
+                    'danger'
+                );
+            }
+
             // Return the view
             return $this->index();
         }
@@ -74,6 +85,15 @@ class SitesController extends Controller
 
         // Save the monitored site
         $monitoredSite->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$monitoredSite->name} was added successfully",
+            'success',
+            true
+        );
 
         // Redirect to the sites page
         return redirect('/sites');
@@ -129,6 +149,16 @@ class SitesController extends Controller
                 $this->postErrors['urls'] = 'The "Site URLs to check" field is required';
             }
 
+            // Add an error message
+            if (count($this->postErrors) > 0) {
+                Messages::addMessage(
+                    'postErrors',
+                    'There were errors with your submission',
+                    $this->postErrors,
+                    'danger'
+                );
+            }
+
             // Return the view
             return $this->view($monitoredSite);
         }
@@ -141,6 +171,15 @@ class SitesController extends Controller
 
         // Save the monitored site
         $monitoredSite->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$monitoredSite->name} was updated successfully",
+            'success',
+            true
+        );
 
         // Redirect to the dashboard
         return redirect('/sites');

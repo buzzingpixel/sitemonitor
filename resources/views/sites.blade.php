@@ -13,17 +13,6 @@
         <div class="row">
             <div class="col-md-12">
 
-                @if (count($postErrors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>There were errors with your submission</strong>
-                        <ul>
-                            @foreach($postErrors as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <div class="panel panel-default">
                     <div class="panel-heading">Monitored Sites</div>
 

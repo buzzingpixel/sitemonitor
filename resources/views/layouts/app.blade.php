@@ -82,6 +82,30 @@
             </div>
         </nav>
 
+        @if (Session::has('messages') && count(Session::get('messages')) > 0)
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @foreach (Session::get('messages') as $message)
+                            <div class="alert alert-{{ $message['type'] }}">
+                                <strong>{{ $message['heading'] }}</strong>
+                                @if (is_array($message['message']))
+                                    <ul>
+                                        @foreach ($message['message'] as $item)
+                                            <li>{{ $item }}</li>
+                                        @endforeach
+                                    </ul>
+                                @elseif ($message['message'])
+                                    <p>{{ $message['message'] }}</p>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @yield('content')
     </div>
 
