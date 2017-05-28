@@ -38,6 +38,7 @@ class MonitoredSite extends Model
 
     /**
      * Get URLs as array
+     * @return array
      */
     public function getUrlsAsArray()
     {
