@@ -12,32 +12,14 @@
 */
 
 Route::get('/', function () {
-    return redirect('/dashboard');
+    return redirect('/sites');
+});
+
+Route::get('/dashboard', function () {
+    return redirect('/sites');
 });
 
 Auth::routes();
-
-// Old Routes
-
-Route::get('/dashboard', 'DashboardController@index');
-
-Route::post('/dashboard', 'DashboardController@createSite');
-
-Route::get('/dashboard/site/{monitoredSite}', 'DashboardController@editSite');
-
-Route::post('/dashboard/site/{monitoredSite}', 'DashboardController@updateSite');
-
-Route::post('/dashboard/site/delete/{monitoredSite}', 'DashboardController@deleteSite');
-
-Route::post('/dashboard/email', 'DashboardController@addEmail');
-
-Route::get('/dashboard/email/{notificationEmail}', 'DashboardController@deleteEmail');
-
-Route::post('/dashboard/users', 'DashboardController@updateUsers');
-
-Route::get('/dashboard/site/incidents/{monitoredSite}', 'DashboardController@viewSiteIncidents');
-
-// New Routes
 
 Route::get('/noaccess', function () {
     return view('noaccess');
