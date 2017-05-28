@@ -181,7 +181,31 @@ class SitesController extends Controller
             true
         );
 
-        // Redirect to the dashboard
+        // Redirect to the sites page
+        return redirect('/sites');
+    }
+
+    /**
+     * Delete site
+     * @param MonitoredSite $monitoredSite
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function delete(MonitoredSite $monitoredSite)
+    {
+        // Delete the site
+        $monitoredSite->delete();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$monitoredSite->name} was deleted successfully",
+            'success',
+            true
+        );
+
+        // Redirect to the sites page
         return redirect('/sites');
     }
 }

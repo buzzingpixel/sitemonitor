@@ -61,7 +61,7 @@
                         </div>
                     </form>
                     <br>
-                    <form method="POST" action="/dashboard/site/delete/{{ $monitoredSite->id }}">
+                    <form method="POST" action="/sites/delete/{{ $monitoredSite->id }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <button type="submit" class="btn btn-danger">Delete Site</button>
