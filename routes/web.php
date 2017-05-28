@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Old Routes
+
 Route::get('/dashboard', 'DashboardController@index');
 
 Route::post('/dashboard', 'DashboardController@createSite');
@@ -34,3 +36,10 @@ Route::get('/dashboard/email/{notificationEmail}', 'DashboardController@deleteEm
 Route::post('/dashboard/users', 'DashboardController@updateUsers');
 
 Route::get('/dashboard/site/incidents/{monitoredSite}', 'DashboardController@viewSiteIncidents');
+
+// New Routes
+Route::get('/noaccess', function () {
+    return view('noaccess');
+});
+
+Route::get('/sites', 'SitesController@index');
