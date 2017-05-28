@@ -26,7 +26,7 @@
                                 @foreach ($monitoredSites as $monitoredSite)
                                     <tr class="@if ($monitoredSite->has_error) danger @else success @endif">
                                         <td>{{ $monitoredSite->name }}</td>
-                                        <td>{{ $monitoredSite->urls }}</td>
+                                        <td>{!! implode('<br>', $monitoredSite->getUrlsAsArray()) !!}</td>
                                         <td>@if ($monitoredSite->has_error) Down @else Up @endif</td>
                                         <td>{{ $monitoredSite->last_checked }}</td>
                                         <td><a href="/dashboard/site/incidents/{{ $monitoredSite->id }}">View</a></td>

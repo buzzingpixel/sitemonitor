@@ -54,13 +54,8 @@ class CheckSitesController
     {
         $hasErrors = false;
 
-        // Get the URLs
-        $urls = array_map(function ($i) {
-            return trim($i);
-        }, explode(',', $monitoredSite->urls));
-
         // Iterate through URLs
-        foreach ($urls as $url) {
+        foreach ($monitoredSite->getUrlsAsArray() as $url) {
             // Check for URL error
             $hasErrors = $this->checkUrl($url);
 
