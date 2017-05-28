@@ -38,8 +38,11 @@ Route::post('/dashboard/users', 'DashboardController@updateUsers');
 Route::get('/dashboard/site/incidents/{monitoredSite}', 'DashboardController@viewSiteIncidents');
 
 // New Routes
+
 Route::get('/noaccess', function () {
     return view('noaccess');
 });
 
 Route::get('/sites', 'SitesController@index');
+
+Route::post('/sites', 'SitesController@create');
