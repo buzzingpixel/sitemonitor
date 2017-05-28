@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property int $id Primary key
  * @property string $name User name
+ * @property string $email User emails
  * @property bool $is_admin Whether user is admin
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated

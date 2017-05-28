@@ -57,3 +57,6 @@ Route::get('/notifications', 'NotificationsController@index');
 Route::post('/notifications', 'NotificationsController@create');
 
 Route::get('/notifications/delete/{notificationEmail}', 'NotificationsController@delete');
+
+Route::get('/admins', 'AdminsController@index');
+Route::post('/admins', 'AdminsController@update');
