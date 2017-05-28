@@ -52,3 +52,8 @@ Route::get('/sites/edit/{monitoredSite}', 'SitesController@view');
 Route::post('/sites/edit/{monitoredSite}', 'SitesController@edit');
 
 Route::post('/sites/delete/{monitoredSite}', 'SitesController@delete');
+
+Route::get('/notifications', 'NotificationsController@index');
+Route::post('/notifications', 'NotificationsController@create');
+
+Route::get('/notifications/delete/{notificationEmail}', 'NotificationsController@delete');
