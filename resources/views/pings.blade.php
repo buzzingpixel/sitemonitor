@@ -29,6 +29,7 @@
                                     <th>Last Ping</th>
                                     <th>Status</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +43,7 @@
                                             <td>TODO</td>
                                             <td>{{ $ping->asCarbon('last_ping') }}</td>
                                             <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
+                                            <td><a href="/pings/{{ $ping->id }}">Edit</a></td>
                                             <td><a href="/pings/delete/{{ $ping->id }}">Delete</a></td>
                                         </tr>
                                     @endforeach
