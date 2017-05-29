@@ -39,9 +39,9 @@
                         <li>
                             <a href="/sites">Sites</a>
                         </li>
-                        {{--<li>
+                        <li>
                             <a href="/pings">Pings</a>
-                        </li>--}}
+                        </li>
                         <li>
                             <a href="/notifications">Notifications</a>
                         </li>
