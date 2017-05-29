@@ -34,8 +34,9 @@ class Ping extends Model
      */
     public function save(array $options = [])
     {
+        dd($this->exists);
         // If this is a new record, we have some work to do
-        if (! static::exists()) {
+        if (! $this->exists) {
             $this->prepareNewSave();
         }
 
