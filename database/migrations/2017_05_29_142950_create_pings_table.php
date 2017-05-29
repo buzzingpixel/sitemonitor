@@ -21,9 +21,9 @@ class CreatePingsTable extends Migration
             $table->increments('id');
             $table->string('guid')->nullable(false);
             $table->string('name');
-            $table->timestamp('expect_every');
-            $table->timestamp('warn_after');
-            $table->timestamp('last_ping');
+            $table->unsignedBigInteger('expect_every');
+            $table->unsignedBigInteger('warn_after');
+            $table->unsignedBigInteger('last_ping');
             $table->boolean('has_error')->default(0);
             $table->timestamps();
         });
