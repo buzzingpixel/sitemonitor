@@ -250,7 +250,6 @@ class PingsController extends Controller
     {
         // Check the ping in
         $ping->last_ping = time();
-        $ping->has_error = false;
         $ping->save();
         return [
             'status' => 'OK'

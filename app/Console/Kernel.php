@@ -29,6 +29,10 @@ class Kernel extends ConsoleKernel
         if (env('CHECK_SITES_PING')) {
             $command->thenPing(env('CHECK_SITES_PING'));
         }
+
+        $schedule->command('check-pings')
+            ->everyMinute()
+            ->withoutOverlapping();
     }
 
     /**

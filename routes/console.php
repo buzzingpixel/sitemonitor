@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Controllers\CheckSitesController;
+use App\Console\Controllers\CheckPingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +16,10 @@ use App\Console\Controllers\CheckSitesController;
 
 Artisan::command('check-sites', function () {
     $checkSitesController = new CheckSitesController();
+    $checkSitesController->runCheck();
+})->describe('Check status of monitored sties');
+
+Artisan::command('check-pings', function () {
+    $checkSitesController = new CheckPingsController();
     $checkSitesController->runCheck();
 })->describe('Check status of monitored sties');
