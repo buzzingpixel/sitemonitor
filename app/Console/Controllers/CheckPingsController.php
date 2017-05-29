@@ -53,7 +53,7 @@ class CheckPingsController
      */
     public function checkPing(Ping $ping)
     {
-        $warn = $ping->last_ping + $ping->warn_after;
+        $warn = $ping->last_ping + $ping->expect_every + $ping->warn_after;
         $isMissing = $this->startTime > $warn;
 
         // Check if site is missing
