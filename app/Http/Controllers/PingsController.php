@@ -32,6 +32,7 @@ class PingsController extends Controller
     public function index()
     {
         return view('pings', [
+            'pings' => Ping::orderBy('name', 'asc')->get(),
             'postErrors' => $this->postErrors,
             'postValues' => $this->postValues
         ]);

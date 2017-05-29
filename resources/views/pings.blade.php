@@ -1,9 +1,56 @@
+<?php
+
+/** @var \Illuminate\Database\Eloquent\Collection $pings */
+/** @var array $postErrors */
+/** @var array $postValues */
+
+?>
+
 @extends('layouts.app')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Pings</div>
+
+                    @if ($pings->count())
+
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Expect Every</th>
+                                    <th>Warn After</th>
+                                    <th>Ping Url</th>
+                                    <th>Last Ping</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pings as $ping)
+                                        <?php /** @var \App\Ping $ping */ ?>
+
+                                        <tr class="@if ($ping->has_error) danger @else success @endif">
+                                            <td>{{ $ping->name }}</td>
+                                            <td>{{ $ping->expect_every }} minutes</td>
+                                            <td>{{ $ping->warn_after }} minutes</td>
+                                            <td>TODO</td>
+                                            <td>{{ $ping->asCarbon('last_ping') }}</td>
+                                            <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
+                                            <td><a href="/pings/delete/{{ $ping->id }}">Delete</a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                    @endif
+                </div>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Add Ping</div>

@@ -34,7 +34,6 @@ class Ping extends Model
      */
     public function save(array $options = [])
     {
-        // dd(static::exists());
         // If this is a new record, we have some work to do
         if (! static::exists()) {
             $this->prepareNewSave();
@@ -42,6 +41,16 @@ class Ping extends Model
 
         // Run parent save method
         return parent::save($options);
+    }
+
+    /**
+     * Get timestamp as Carbon
+     * @param string $param
+     * @return Carbon
+     */
+    public function asCarbon($param)
+    {
+        return Carbon::createFromTimestamp($this->{$param});
     }
 
     /**
