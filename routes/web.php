@@ -55,7 +55,11 @@ Route::post('/sites/delete/{monitoredSite}', 'SitesController@delete');
  * /pings area
  */
 
+// List pings
 Route::get('/pings', 'PingsController@index');
+
+// Create a ping
+Route::post('/pings', 'PingsController@create');
 
 
 /**

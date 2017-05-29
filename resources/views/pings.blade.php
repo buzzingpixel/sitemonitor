@@ -14,7 +14,12 @@
                             {{ csrf_field() }}
 
                             <div class="form-group @if (isset($postErrors['name'])) has-error @endif">
-                                <label for="name">Name</label>
+                                <label for="name">
+                                    Ping Name<br>
+                                    <span class="info text-info" style="font-weight: normal">
+                                        Give this ping a name you will recognize
+                                    </span>
+                                </label>
                                 <input
                                     type="text"
                                     name="name"
@@ -31,7 +36,12 @@
                             </div>
 
                             <div class="form-group @if (isset($postErrors['expect_every'])) has-error @endif">
-                                <label for="expect_every">Expect Every&hellip; (in minutes)</label>
+                                <label for="expect_every">
+                                    Expect Every&hellip; (in minutes)<br>
+                                    <span class="info text-info" style="font-weight: normal">
+                                        Specify in minutes how often to expect this ping
+                                    </span>
+                                </label>
                                 <input
                                     type="text"
                                     name="expect_every"
@@ -48,7 +58,12 @@
                             </div>
 
                             <div class="form-group @if (isset($postErrors['warn_after'])) has-error @endif">
-                                <label for="warn_after">Warn After&hellip; (in minutes)</label>
+                                <label for="warn_after">
+                                    Warn After&hellip; (in minutes)<br>
+                                    <span class="info text-info" style="font-weight: normal">
+                                        Specify in minutes when to warn after not hearing from ping
+                                    </span>
+                                </label>
                                 <input
                                     type="text"
                                     name="warn_after"

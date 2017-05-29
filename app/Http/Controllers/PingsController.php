@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Ping;
 use App\Service\Messages;
 
 /**
@@ -10,6 +10,12 @@ use App\Service\Messages;
  */
 class PingsController extends Controller
 {
+    /** @var array $postErrors */
+    private $postErrors = array();
+
+    /** @var array $postValues */
+    private $postValues = array();
+
     /**
      * Create a new controller instance
      */
@@ -25,6 +31,85 @@ class PingsController extends Controller
      */
     public function index()
     {
-        return view('pings');
+        return view('pings', [
+            'postErrors' => $this->postErrors,
+            'postValues' => $this->postValues
+        ]);
+    }
+
+    /**
+     * Create a new ping
+     * @return \Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function create()
+    {
+        // Set post values
+        $this->postValues['name'] = request('name');
+        $this->postValues['expect_every'] = request('expect_every');
+        $this->postValues['warn_after'] = request('warn_after');
+
+        // Cast values
+        $name = (string) $this->postValues['name'];
+        $expectEvery = (int) $this->postValues['expect_every'];
+        $warnAfter = (int) $this->postValues['warn_after'];
+
+        // Make sure we have name and urls
+        if (! $name || ! $expectEvery || ! $warnAfter) {
+            // Set name error
+            if (! $name) {
+                $this->postErrors['name'] = 'The "Ping Name" field is required';
+            }
+
+            // Set expect_every error
+            if (! $expectEvery) {
+                $this->postErrors['expect_every'] = 'You must specify in minutes how often to expect this ping';
+            }
+
+            // Set warn_after error
+            if (! $warnAfter) {
+                $this->postErrors['warn_after'] =
+                    'You must specify in minutes when to warn after not hearing from ping';
+            }
+
+            // Add an error message
+            if (count($this->postErrors) > 0) {
+                Messages::addMessage(
+                    'postErrors',
+                    'There were errors with your submission',
+                    $this->postErrors,
+                    'danger'
+                );
+            }
+
+            // Return the view
+            return $this->index();
+        }
+
+        // Create a monitored site model
+        $ping = new Ping();
+
+        // Add name
+        $ping->name = $name;
+
+        // Add expect_every
+        $ping->expect_every = $expectEvery;
+
+        // Add warn_after
+        $ping->warn_after = $warnAfter;
+
+        // Save the monitored site
+        $ping->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$ping->name} was added successfully",
+            'success',
+            true
+        );
+
+        // Redirect to the sites page
+        return redirect('/pings');
     }
 }
