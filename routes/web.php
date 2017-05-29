@@ -61,6 +61,12 @@ Route::get('/pings', 'PingsController@index');
 // Create a ping
 Route::post('/pings', 'PingsController@create');
 
+// Edit a ping
+Route::get('/pings/edit/{ping}', 'PingsController@view');
+
+// Submit ping edit
+Route::post('/pings/edit/{ping}', 'PingsController@edit');
+
 
 /**
  * /notifications area

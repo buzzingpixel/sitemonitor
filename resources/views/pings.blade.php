@@ -13,52 +13,62 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">Pings</div>
+                @if ($pings->count())
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Pings</div>
 
-                    @if ($pings->count())
+                            <div class="panel-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Expect Every</th>
+                                        <th>Warn After</th>
+                                        <th>Ping Url</th>
+                                        <th>Last Ping</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pings as $ping)
+                                            <?php /** @var \App\Ping $ping */ ?>
 
-                        <div class="panel-body">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Expect Every</th>
-                                    <th>Warn After</th>
-                                    <th>Ping Url</th>
-                                    <th>Last Ping</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($pings as $ping)
-                                        <?php /** @var \App\Ping $ping */ ?>
+                                            <tr class="@if ($ping->has_error) danger @else success @endif">
+                                                <td>{{ $ping->name }}</td>
+                                                <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
+                                                <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
+                                                <td>TODO</td>
+                                                <td>{{ $ping->asCarbon('last_ping') }}</td>
+                                                <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
+                                                <td><a href="/pings/edit/{{ $ping->id }}">Edit</a></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                        <tr class="@if ($ping->has_error) danger @else success @endif">
-                                            <td>{{ $ping->name }}</td>
-                                            <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
-                                            <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
-                                            <td>TODO</td>
-                                            <td>{{ $ping->asCarbon('last_ping') }}</td>
-                                            <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
-                                            <td><a href="/pings/{{ $ping->id }}">Edit</a></td>
-                                            <td><a href="/pings/delete/{{ $ping->id }}">Delete</a></td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-                    @endif
-                </div>
+                    </div>
+                @endif
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Add Ping</div>
+                    <div class="panel-heading">
+                        @if (isset($editPing))
+                            Editing Ping: {{ $editPing->name }}
+                        @else
+                            Add Ping
+                        @endif
+                    </div>
 
                     <div class="panel-body">
-                        <form method="POST" action="/pings">
+                        <form
+                            method="POST"
+                            @if (isset($editPing))
+                            action="/pings/edit/{{ $editPing->id }}"
+                            @else
+                            action="/pings"
+                            @endif
+                        >
 
                             {{ csrf_field() }}
 
@@ -129,10 +139,25 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Add Ping</button>
+                                <button type="submit" class="btn btn-primary">
+                                    @if (isset($editPing))
+                                        Save Ping
+                                    @else
+                                        Add Ping
+                                    @endif
+                                </button>
                             </div>
 
                         </form>
+                        @if (isset($editPing))
+                            <br>
+                            <form method="POST" action="/pings/delete/{{ $editPing->id }}">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-danger">Delete Ping</button>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
 
