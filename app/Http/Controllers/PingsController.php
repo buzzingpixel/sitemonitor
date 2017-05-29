@@ -93,10 +93,10 @@ class PingsController extends Controller
         $ping->name = $name;
 
         // Add expect_every
-        $ping->expect_every = $expectEvery;
+        $ping->setMinutes('expect_every', $expectEvery);
 
         // Add warn_after
-        $ping->warn_after = $warnAfter;
+        $ping->setMinutes('warn_after', $warnAfter);
 
         // Save the monitored site
         $ping->save();

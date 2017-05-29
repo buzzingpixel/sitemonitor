@@ -44,6 +44,24 @@ class Ping extends Model
     }
 
     /**
+     * Set timestamp from minutes
+     * @param string $param
+     * @param int $minutes
+     */
+    public function setMinutes($param, $minutes)
+    {
+        $this->{$param} = $minutes * 60;
+    }
+
+    /**
+     * Get minutes from seconds
+     */
+    public function getMinutes($param)
+    {
+        return $this->{$param} / 60;
+    }
+
+    /**
      * Get timestamp as Carbon
      * @param string $param
      * @return Carbon

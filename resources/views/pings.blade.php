@@ -37,8 +37,8 @@
 
                                         <tr class="@if ($ping->has_error) danger @else success @endif">
                                             <td>{{ $ping->name }}</td>
-                                            <td>{{ $ping->expect_every }} minutes</td>
-                                            <td>{{ $ping->warn_after }} minutes</td>
+                                            <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
+                                            <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
                                             <td>TODO</td>
                                             <td>{{ $ping->asCarbon('last_ping') }}</td>
                                             <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
