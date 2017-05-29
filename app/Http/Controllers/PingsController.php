@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ping;
+use App\PingGuid;
 use App\Service\Messages;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -220,6 +221,7 @@ class PingsController extends Controller
      * Delete ping
      * @param Ping $ping
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function delete(Ping $ping)
     {
@@ -237,5 +239,21 @@ class PingsController extends Controller
 
         // Redirect to the pings page
         return redirect('/pings');
+    }
+
+    /**
+     * Ping check in
+     * @param PingGuid $ping
+     * @return array
+     */
+    public function checkin(PingGuid $ping)
+    {
+        // Check the ping in
+        $ping->last_ping = time();
+        $ping->has_error = false;
+        $ping->save();
+        return [
+            'status' => 'OK'
+        ];
     }
 }

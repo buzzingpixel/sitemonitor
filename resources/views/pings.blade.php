@@ -38,7 +38,13 @@
                                                 <td>{{ $ping->name }}</td>
                                                 <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
                                                 <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
-                                                <td>TODO</td>
+                                                <td>
+                                                    <a
+                                                        href="{{ url("/pings/checkin/{$ping->guid}") }}"
+                                                    >
+                                                        Ping URL
+                                                    </a>
+                                                </td>
                                                 <td>{{ $ping->asCarbon('last_ping') }}</td>
                                                 <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
                                                 <td><a href="/pings/edit/{{ $ping->id }}">Edit</a></td>
