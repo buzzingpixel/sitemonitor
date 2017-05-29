@@ -67,6 +67,9 @@ Route::get('/pings/edit/{ping}', 'PingsController@view');
 // Submit ping edit
 Route::post('/pings/edit/{ping}', 'PingsController@edit');
 
+// Delete a ping
+Route::post('/pings/delete/{ping}', 'PingsController@delete');
+
 
 /**
  * /notifications area

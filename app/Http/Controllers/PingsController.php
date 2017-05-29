@@ -215,4 +215,27 @@ class PingsController extends Controller
         // Redirect to the sites page
         return redirect('/pings');
     }
+
+    /**
+     * Delete ping
+     * @param Ping $ping
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Ping $ping)
+    {
+        // Delete the ping
+        $ping->delete();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$ping->name} was deleted successfully",
+            'success',
+            true
+        );
+
+        // Redirect to the pings page
+        return redirect('/pings');
+    }
 }
