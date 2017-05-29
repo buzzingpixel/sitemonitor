@@ -44,6 +44,27 @@ class Ping extends Model
     }
 
     /**
+     * Get health status
+     * @return string
+     */
+    public function getHealthStatus()
+    {
+        $time = time();
+        $expectTime = $this->last_ping + $this->expect_every;
+        $warnTime = $expectTime + $this->warn_after;
+
+        if ($time > $warnTime) {
+            return 'pastWarning';
+        }
+
+        if ($time > $expectTime) {
+            return 'pastExpect';
+        }
+
+        return 'healthy';
+    }
+
+    /**
      * Set timestamp from minutes
      * @param string $param
      * @param int $minutes

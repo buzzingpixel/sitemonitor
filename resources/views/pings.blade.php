@@ -34,7 +34,7 @@
                                         @foreach ($pings as $ping)
                                             <?php /** @var \App\Ping $ping */ ?>
 
-                                            <tr class="@if ($ping->has_error) danger @else success @endif">
+                                            <tr class="@if ($ping->getHealthStatus() === 'pastWarning') danger @elseif ($ping->getHealthStatus() === 'pastExpect') warning @else success @endif">
                                                 <td>{{ $ping->name }}</td>
                                                 <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
                                                 <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
@@ -46,7 +46,15 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $ping->asCarbon('last_ping') }}</td>
-                                                <td>@if ($ping->has_error) Missing @else &#x1f44d; @endif</td>
+                                                <td>
+                                                    @if ($ping->getHealthStatus() === 'pastWarning')
+                                                        Missing
+                                                    @elseif ($ping->getHealthStatus() === 'pastExpect')
+                                                        Overdue
+                                                    @else
+                                                        &#x1f44d;
+                                                    @endif
+                                                </td>
                                                 <td><a href="/pings/edit/{{ $ping->id }}">Edit</a></td>
                                             </tr>
                                         @endforeach
