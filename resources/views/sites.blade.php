@@ -41,7 +41,7 @@
                                                     <a href="{{ $url }}" target="_blank">{{ $url }}</a><br>
                                                 @endforeach
                                             </td>
-                                            <td>@if ($monitoredSite->has_error) Down @else Up @endif</td>
+                                            <td>@if ($monitoredSite->has_error) Down @else &#x1f44d; @endif</td>
                                             <td>{{ $monitoredSite->last_checked }}</td>
                                             <td><a href="/sites/incidents/{{ $monitoredSite->id }}">View</a></td>
                                             <td><a href="/sites/edit/{{ $monitoredSite->id }}">Edit</a></td>
