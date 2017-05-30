@@ -52,7 +52,10 @@ class AdminsController extends Controller
         foreach ($users as $userId => $userInput) {
             /** @var User $user */
             $user = User::where('id', $userId)->first();
-            $user->is_admin = $userInput['is_admin'];
+            $user->access_sites = $userInput['access_sites'];
+            $user->access_pings = $userInput['access_pings'];
+            $user->access_notifications = $userInput['access_notifications'];
+            $user->access_admins = $userInput['access_admins'];
             $user->save();
         }
 

@@ -23,7 +23,10 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Login Email</th>
-                                        <th>Has Access</th>
+                                        <th>Access Sites</th>
+                                        <th>Access Pings</th>
+                                        <th>Access Notifications</th>
+                                        <th>Access Admins</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -34,12 +37,45 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                <input type="hidden" name="users[{{ $user->id }}][is_admin]" value="0">
+                                                <input type="hidden" name="users[{{ $user->id }}][access_sites]" value="0">
                                                 <input
                                                     type="checkbox"
-                                                    name="users[{{ $user->id }}][is_admin]"
+                                                    name="users[{{ $user->id }}][access_sites]"
                                                     value="1"
-                                                    @if ($user->is_admin)
+                                                    @if ($user->access_sites)
+                                                    checked
+                                                    @endif
+                                                >
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="users[{{ $user->id }}][access_pings]" value="0">
+                                                <input
+                                                    type="checkbox"
+                                                    name="users[{{ $user->id }}][access_pings]"
+                                                    value="1"
+                                                    @if ($user->access_pings)
+                                                    checked
+                                                    @endif
+                                                >
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="users[{{ $user->id }}][access_notifications]" value="0">
+                                                <input
+                                                    type="checkbox"
+                                                    name="users[{{ $user->id }}][access_notifications]"
+                                                    value="1"
+                                                    @if ($user->access_notifications)
+                                                    checked
+                                                    @endif
+                                                >
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="users[{{ $user->id }}][access_admins]" value="0">
+                                                <input
+                                                    type="checkbox"
+                                                    name="users[{{ $user->id }}][access_admins]"
+                                                    value="1"
+                                                    @if ($user->access_admins)
                                                     checked
                                                     @endif
                                                 >
