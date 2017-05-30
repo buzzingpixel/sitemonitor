@@ -20,6 +20,7 @@
                                 <thead>
                                     <tr>
                                         <th>Key Name</th>
+                                        <th>Default</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -27,8 +28,15 @@
                                     @foreach ($user->sshKeys as $sshKey)
                                         <?php /** @var \App\SshKey $sshKey */ ?>
 
-                                        <tr>
+                                        <tr class="@if ($sshKey->is_default) info @endif">
                                             <td>{{ $sshKey->name }}</td>
+                                            <td>
+                                                @if ($sshKey->is_default)
+                                                    &#x1f44d;
+                                                @else
+                                                    <a href="/settings/make-default-ssh-key/{{ $sshKey->id }}">Make Default</a>
+                                                @endif
+                                            </td>
                                             <td><a href="/settings/delete-ssh-key/{{ $sshKey->id }}">Delete</a></td>
                                         </tr>
                                     @endforeach

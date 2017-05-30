@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id Primary key
  * @property int $user_id ID of the user this key belongs to
  * @property User $user
+ * @property bool $is_default
  * @property string $name Key name
  * @property string $key The key
  * @property Carbon $created_at When the record was created

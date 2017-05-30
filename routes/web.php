@@ -114,3 +114,6 @@ Route::post('/settings/add-ssh-key', 'SettingsController@addSshKey');
 
 // Delete SSH Key
 Route::get('/settings/delete-ssh-key/{sshKey}', 'SettingsController@deleteSshKey');
+
+// Delete SSH Key default
+Route::get('/settings/make-default-ssh-key/{sshKey}', 'SettingsController@makeSshKeyDefault');

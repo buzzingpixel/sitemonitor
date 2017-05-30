@@ -96,7 +96,7 @@ class SettingsController extends Controller
         Messages::addMessage(
             'postSuccess',
             'Success!',
-            "The SSH Key {$sshKey->name} was added successfully",
+            "The SSH key {$sshKey->name} was added successfully",
             'success',
             true
         );
@@ -120,7 +120,38 @@ class SettingsController extends Controller
         Messages::addMessage(
             'postSuccess',
             'Success!',
-            "{$sshKey->name} was deleted successfully",
+            "The SSH key {$sshKey->name} was deleted successfully",
+            'success',
+            true
+        );
+
+        // Redirect to settings
+        return redirect('/settings');
+    }
+
+    /**
+     * Make SSH Key Default
+     * @param SshKey $sshKey
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function makeSshKeyDefault(SshKey $sshKey)
+    {
+        // Remove existing default
+        SshKey::query()->where('is_default', 1)->update([
+            'is_default' => 0
+        ]);
+
+        // Set key as default
+        $sshKey->is_default = true;
+
+        // Save the key
+        $sshKey->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "The SSH key {$sshKey->name} was made the default",
             'success',
             true
         );
