@@ -240,19 +240,4 @@ class PingsController extends Controller
         // Redirect to the pings page
         return redirect('/pings');
     }
-
-    /**
-     * Ping check in
-     * @param PingGuid $ping
-     * @return array
-     */
-    public function checkin(PingGuid $ping)
-    {
-        // Check the ping in
-        $ping->last_ping = time();
-        $ping->save();
-        return [
-            'status' => 'OK'
-        ];
-    }
 }

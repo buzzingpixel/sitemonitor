@@ -71,7 +71,7 @@ Route::post('/pings/edit/{ping}', 'PingsController@edit');
 Route::post('/pings/delete/{ping}', 'PingsController@delete');
 
 // Ping check in
-Route::get('/pings/checkin/{ping}', 'PingsController@checkin');
+Route::get('/pings/checkin/{ping}', 'PingsCheckinController@checkin');
 
 
 /**
