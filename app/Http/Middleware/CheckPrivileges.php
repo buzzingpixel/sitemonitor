@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use App\User;
@@ -27,14 +28,15 @@ class CheckPrivileges
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Request $request
+     * @param Closure $next
+     * @param string $section
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next, string $section)
     {
         // If the user is not an admin, show the noaccess view
-        if (! $this->currentUser->is_admin) {
+        if (! $this->currentUser->{"access_{$section}"}) {
             return redirect('noaccess');
         }
 
