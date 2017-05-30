@@ -35,20 +35,30 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/sites">Sites</a>
-                        </li>
-                        <li>
-                            <a href="/pings">Pings</a>
-                        </li>
-                        <li>
-                            <a href="/notifications">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="/admins">Admins</a>
-                        </li>
-                    </ul>
+                    @if (! Auth::guest())
+                        <ul class="nav navbar-nav">
+                            @if (Auth::getUser()->access_sites)
+                                <li>
+                                    <a href="/sites">Sites</a>
+                                </li>
+                            @endif
+                            @if (Auth::getUser()->access_pings)
+                                <li>
+                                    <a href="/pings">Pings</a>
+                                </li>
+                            @endif
+                            @if (Auth::getUser()->access_notifications)
+                                <li>
+                                    <a href="/notifications">Notifications</a>
+                                </li>
+                            @endif
+                            @if (Auth::getUser()->access_admins)
+                                <li>
+                                    <a href="/admins">Admins</a>
+                                </li>
+                            @endif
+                        </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
