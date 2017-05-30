@@ -100,3 +100,17 @@ Route::get('/admins', 'AdminsController@index');
 
 // Update user permissions
 Route::post('/admins', 'AdminsController@update');
+
+
+/**
+ * /settings area
+ */
+
+// Display settings
+Route::get('/settings', 'SettingsController@index');
+
+// Add SSH Key
+Route::post('/settings/add-ssh-key', 'SettingsController@addSshKey');
+
+// Delete SSH Key
+Route::get('/settings/delete-ssh-key/{sshKey}', 'SettingsController@deleteSshKey');

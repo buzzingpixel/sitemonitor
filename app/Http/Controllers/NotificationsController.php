@@ -88,6 +88,7 @@ class NotificationsController extends Controller
         // Redirect to the sites page
         return redirect('/notifications');
     }
+
     /**
      * Delete email
      * @param NotificationEmail $notificationEmail

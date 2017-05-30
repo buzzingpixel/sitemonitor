@@ -21,10 +21,10 @@
                         <div class="panel-body">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th>Email Address</th>
-                                    <th></th>
-                                </tr>
+                                    <tr>
+                                        <th>Email Address</th>
+                                        <th></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($notificationEmails as $notificationEmail)
