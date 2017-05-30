@@ -12,7 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $id Primary key
  * @property string $name User name
  * @property string $email User emails
- * @property bool $is_admin Whether user is admin
+ * @property bool $access_sites Whether user can access sites admin
+ * @property bool $access_pings Whether user can access pings admin
+ * @property bool $access_notifications Whether user can access notifications admin
+ * @property bool $access_admins Whether user can access admins admin
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
  * @mixin \Eloquent
