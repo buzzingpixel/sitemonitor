@@ -1,3 +1,32 @@
+<?php
+
+$user = Auth::getUser();
+
+$mainNav = [
+    [
+        'title' => 'Sites',
+        'segment' => 'sites',
+    ],
+    [
+        'title' => 'Pings',
+        'segment' => 'pings'
+    ],
+    [
+        'title' => 'Notifications',
+        'segment' => 'notifications'
+    ],
+    [
+        'title' => 'Servers',
+        'segment' => 'servers'
+    ],
+    [
+        'title' => 'Admins',
+        'segment' => 'admins'
+    ]
+];
+
+?>
+
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
@@ -37,31 +66,25 @@
                     <!-- Left Side Of Navbar -->
                     @if (! Auth::guest())
                         <ul class="nav navbar-nav">
-                            @if (Auth::getUser()->access_sites)
-                                <li>
-                                    <a href="/sites">Sites</a>
-                                </li>
-                            @endif
-                            @if (Auth::getUser()->access_pings)
-                                <li>
-                                    <a href="/pings">Pings</a>
-                                </li>
-                            @endif
-                            @if (Auth::getUser()->access_notifications)
-                                <li>
-                                    <a href="/notifications">Notifications</a>
-                                </li>
-                            @endif
-                            @if (Auth::getUser()->access_servers)
-                                <li>
-                                    <a href="/servers">Servers</a>
-                                </li>
-                            @endif
-                            @if (Auth::getUser()->access_admins)
-                                <li>
-                                    <a href="/admins">Admins</a>
-                                </li>
-                            @endif
+                            @foreach ($mainNav as $item)
+                                @if ($user->{"access_{$item['segment']}"})
+                                    <li
+                                        @if ($item['segment'] === Request::segment(1))
+                                        class="active"
+                                        @endif
+                                    >
+                                        <a
+                                            @if ($item['segment'])
+                                            href="/{{ $item['segment'] }}"
+                                            @else
+                                            href="/"
+                                            @endif
+                                        >
+                                            {{ $item['title'] }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                         </ul>
                     @endif
 
@@ -78,7 +101,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
+                                    <li
+                                        @if (Request::segment(1) === 'settings')
+                                        class="active"
+                                        @endif
+                                    >
                                         <a href="/settings">
                                             Settings
                                         </a>
