@@ -27,6 +27,16 @@ class SshServerUserKey extends Model
     protected $table = 'ssh_server_user_keys';
 
     /**
+     * The values that are mass assignable
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'ssh_key_id',
+        'server_id',
+    ];
+
+    /**
      * Get the user
      */
     public function user()

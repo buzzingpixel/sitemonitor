@@ -5,9 +5,9 @@
 
 ?>
 
-@extends('layouts.app')
+@extends('servers.layout')
 
-@section('content')
+@section('serverContent')
     <div class="container">
         <div class="row">
             <div class="col-md-12">

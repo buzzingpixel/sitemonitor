@@ -98,6 +98,12 @@ Route::get(
  * /servers area
  */
 
+// List user ssh keys for servers
+Route::get('/servers/user-server-keys', 'ServersSshUserKeysController@index');
+
+// Update user ssh keys for servers
+Route::post('/servers/user-server-keys', 'ServersSshUserKeysController@update');
+
 // List servers
 Route::get('/servers', 'ServersController@index');
 
