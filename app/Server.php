@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Server
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $address
  * @property int $port
  * @property string $username
+ * @property Collection $sshServerUserKeys
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
  * @mixin \Eloquent
@@ -74,4 +76,13 @@ class Server extends Model
             'required' => true
         ]
     ];
+
+    /**
+     * SSH Server Keys
+     */
+    public function sshServerUserKeys()
+    {
+        return $this->hasMany(SshServerUserKey::class)
+            ->where('user_id', \Auth::getUser()->id);
+    }
 }

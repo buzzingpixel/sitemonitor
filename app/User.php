@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property bool $access_admins Whether user can access admins admin
  * @property bool $access_servers Whether user can access servers
  * @property Collection $sshKeys
+ * @property Collection $sshServerUserKeys
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
  * @mixin \Eloquent
@@ -47,11 +48,19 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get sshKeys
+     * SSH Keys
      */
     public function sshKeys()
     {
         return $this->hasMany(SshKey::class)
             ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * SSH Server Keys
+     */
+    public function sshServerUserKeys()
+    {
+        return $this->hasMany(SshServerUserKey::class);
     }
 }

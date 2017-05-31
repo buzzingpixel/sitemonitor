@@ -4,31 +4,30 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class SshKey
+ * Class SshServerUserKey
  * @property int $id Primary key
- * @property int $user_id ID of the user this key belongs to
+ * @property int $user_id
  * @property User $user
- * @property bool $is_default
- * @property string $name Key name
- * @property string $key The key
- * @property Collection $sshServerUserKeys
+ * @property int $ssh_key_id
+ * @property SshKey $sshKey
+ * @property int $server_id
+ * @property Server $server
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
  * @mixin \Eloquent
  */
-class SshKey extends Model
+class SshServerUserKey extends Model
 {
     /**
      * The table associated with the model
      * @var string
      */
-    protected $table = 'ssh_keys';
+    protected $table = 'ssh_server_user_keys';
 
     /**
-     * Get the user that owns the ssh key
+     * Get the user
      */
     public function user()
     {
@@ -36,10 +35,18 @@ class SshKey extends Model
     }
 
     /**
-     * SSH Server Keys
+     * Get the SshKey
      */
-    public function sshServerUserKeys()
+    public function sshKey()
     {
-        return $this->hasMany(SshServerUserKey::class);
+        return $this->belongsTo(SshKey::class);
+    }
+
+    /**
+     * Get the Server
+     */
+    public function server()
+    {
+        return $this->belongsTo(Server::class);
     }
 }
