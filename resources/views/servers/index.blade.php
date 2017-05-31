@@ -61,20 +61,20 @@
                                     <span class="error text-danger">{{ $postErrors['port'] }}</span>
                                 @endif
                             </div>
-                            <div class="form-group @if (isset($postErrors['ssh_username'])) has-error @endif">
-                                <label for="ssh_username">SSH User Name</label>
+                            <div class="form-group @if (isset($postErrors['username'])) has-error @endif">
+                                <label for="username">SSH User Name</label>
                                 <input
                                     type="text"
-                                    name="ssh_username"
-                                    id="ssh_username"
+                                    name="username"
+                                    id="username"
                                     class="form-control"
                                     placeholder="forge"
-                                    @if (isset($postValues['ssh_username']))
-                                    value="{{ $postValues['ssh_username'] }}"
+                                    @if (isset($postValues['username']))
+                                    value="{{ $postValues['username'] }}"
                                     @endif
                                 >
-                                @if (isset($postErrors['ssh_username']))
-                                    <span class="error text-danger">{{ $postErrors['ssh_username'] }}</span>
+                                @if (isset($postErrors['username']))
+                                    <span class="error text-danger">{{ $postErrors['username'] }}</span>
                                 @endif
                             </div>
                             <div class="form-group">
