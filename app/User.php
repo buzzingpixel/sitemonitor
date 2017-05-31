@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property bool $access_pings Whether user can access pings admin
  * @property bool $access_notifications Whether user can access notifications admin
  * @property bool $access_admins Whether user can access admins admin
+ * @property bool $access_servers Whether user can access servers
  * @property Collection $sshKeys
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
