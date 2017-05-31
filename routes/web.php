@@ -95,6 +95,13 @@ Route::get(
 
 
 /**
+ * /servers area
+ */
+
+Route::get('/servers', 'ServersController@index');
+
+
+/**
  * /admins area
  */
 
