@@ -1,5 +1,6 @@
 <?php
 
+Auth::user();
 $user = Auth::getUser();
 
 $mainNav = [
