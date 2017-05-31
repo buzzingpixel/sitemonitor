@@ -98,9 +98,20 @@ Route::get(
  * /servers area
  */
 
+// List servers
 Route::get('/servers', 'ServersController@index');
 
+// Create server
 Route::post('/servers', 'ServersController@create');
+
+// View server
+Route::get('/servers/{server}', 'ServersController@view');
+
+// Edit server
+Route::post('/servers/{server}', 'ServersController@edit');
+
+// Delete server
+Route::post('/servers/delete/{server}', 'ServersController@delete');
 
 
 /**

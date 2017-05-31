@@ -45,17 +45,45 @@
                 @endif
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Add a Server</div>
+                    <div class="panel-heading">
+                        @if (isset($editServer))
+                            Editing Server: {{ $editServer->name }}
+                        @else
+                            Add a Server
+                        @endif
+                    </div>
                     <div class="panel-body">
-                        <form method="POST" action="/servers">
+                        <form
+                            method="POST"
+                            @if (isset($editServer))
+                            action="/servers/{{$editServer->id}}"
+                            @else
+                            action="/servers"
+                            @endif
+                        >
                             {{ csrf_field() }}
                             @foreach ($serverInputs as $input)
                                 @include($input['view'])
                             @endforeach
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Add Server</button>
+                                <button type="submit" class="btn btn-primary">
+                                    @if (isset($editServer))
+                                        Save Server
+                                    @else
+                                        Add Server
+                                    @endif
+                                </button>
                             </div>
                         </form>
+                        @if (isset($editServer))
+                            <br>
+                            <form method="POST" action="/servers/delete/{{ $editServer->id }}">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-danger">Delete Server</button>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
 
