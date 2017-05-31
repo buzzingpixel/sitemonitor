@@ -52,6 +52,11 @@
                                     <a href="/notifications">Notifications</a>
                                 </li>
                             @endif
+                            @if (Auth::getUser()->access_servers)
+                                <li>
+                                    <a href="/servers">Servers</a>
+                                </li>
+                            @endif
                             @if (Auth::getUser()->access_admins)
                                 <li>
                                     <a href="/admins">Admins</a>
