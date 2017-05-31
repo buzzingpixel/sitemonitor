@@ -27,6 +27,7 @@
                                         <th>Access Pings</th>
                                         <th>Access Notifications</th>
                                         <th>Access Admins</th>
+                                        <th>Access Servers</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -76,6 +77,17 @@
                                                     name="users[{{ $user->id }}][access_admins]"
                                                     value="1"
                                                     @if ($user->access_admins)
+                                                    checked
+                                                    @endif
+                                                >
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="users[{{ $user->id }}][access_servers]" value="0">
+                                                <input
+                                                    type="checkbox"
+                                                    name="users[{{ $user->id }}][access_servers]"
+                                                    value="1"
+                                                    @if ($user->access_servers)
                                                     checked
                                                     @endif
                                                 >

@@ -56,6 +56,7 @@ class AdminsController extends Controller
             $user->access_pings = $userInput['access_pings'];
             $user->access_notifications = $userInput['access_notifications'];
             $user->access_admins = $userInput['access_admins'];
+            $user->access_servers = $userInput['access_servers'];
             $user->save();
         }
 
