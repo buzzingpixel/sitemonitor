@@ -31,7 +31,7 @@ class ServersController extends Controller
     public function index()
     {
         return view('servers.index', [
-            'servers' => [],
+            'servers' => Server::orderBy('name', 'asc')->get(),
             'serverInputs' => Server::$inputs,
             'postErrors' => $this->postErrors,
             'postValues' => $this->postValues
