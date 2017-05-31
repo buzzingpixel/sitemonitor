@@ -59,7 +59,7 @@
                                     name="name"
                                     id="name"
                                     class="form-control"
-                                    placeholder="MyKey.pub"
+                                    placeholder="MyKey"
                                     @if (isset($postValues['name']))
                                     value="{{ $postValues['name'] }}"
                                     @endif

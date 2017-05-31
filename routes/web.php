@@ -11,6 +11,9 @@
 |
 */
 
+// Tinker
+Route::get('/tinker', 'TinkerController@index');
+
 // Redirect to the sites area
 Route::get('/', function () {
     return redirect('/sites');

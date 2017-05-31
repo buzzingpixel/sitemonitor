@@ -35,6 +35,15 @@ class CheckPrivileges
      */
     public function handle(Request $request, Closure $next, string $section)
     {
+        // Check for tinker access
+        if ($section === 'tinker') {
+            if ($this->currentUser->id !== 1) {
+                return redirect('noaccess');
+            }
+
+            return $next($request);
+        }
+
         // If the user is not an admin, show the noaccess view
         if (! $this->currentUser->{"access_{$section}"}) {
             return redirect('noaccess');
