@@ -1,3 +1,9 @@
+<?php
+
+/** @var array $serverInputs */
+
+?>
+
 @extends('layouts.app')
 
 @section('content')
@@ -11,72 +17,9 @@
                     <div class="panel-body">
                         <form method="POST" action="/servers">
                             {{ csrf_field() }}
-                            <div class="form-group @if (isset($postErrors['name'])) has-error @endif">
-                                <label for="name">Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    class="form-control"
-                                    placeholder="my-server-name"
-                                    @if (isset($postValues['name']))
-                                    value="{{ $postValues['name'] }}"
-                                    @endif
-                                >
-                                @if (isset($postErrors['name']))
-                                    <span class="error text-danger">{{ $postErrors['name'] }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group @if (isset($postErrors['address'])) has-error @endif">
-                                <label for="address">Address or IP</label>
-                                <input
-                                    type="text"
-                                    name="address"
-                                    id="address"
-                                    class="form-control"
-                                    placeholder="192.168.0.0.1"
-                                    @if (isset($postValues['address']))
-                                    value="{{ $postValues['address'] }}"
-                                    @endif
-                                >
-                                @if (isset($postErrors['address']))
-                                    <span class="error text-danger">{{ $postErrors['address'] }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group @if (isset($postErrors['port'])) has-error @endif">
-                                <label for="port">SSH Port</label>
-                                <input
-                                    type="text"
-                                    name="port"
-                                    id="port"
-                                    class="form-control"
-                                    placeholder="22"
-                                    @if (isset($postValues['port']))
-                                    value="{{ $postValues['port'] }}"
-                                    @else
-                                    value="22"
-                                    @endif
-                                >
-                                @if (isset($postErrors['port']))
-                                    <span class="error text-danger">{{ $postErrors['port'] }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group @if (isset($postErrors['username'])) has-error @endif">
-                                <label for="username">SSH User Name</label>
-                                <input
-                                    type="text"
-                                    name="username"
-                                    id="username"
-                                    class="form-control"
-                                    placeholder="forge"
-                                    @if (isset($postValues['username']))
-                                    value="{{ $postValues['username'] }}"
-                                    @endif
-                                >
-                                @if (isset($postErrors['username']))
-                                    <span class="error text-danger">{{ $postErrors['username'] }}</span>
-                                @endif
-                            </div>
+                            @foreach ($serverInputs as $input)
+                                @include($input['view'])
+                            @endforeach
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Add Server</button>
                             </div>

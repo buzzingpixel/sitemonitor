@@ -100,6 +100,8 @@ Route::get(
 
 Route::get('/servers', 'ServersController@index');
 
+Route::post('/servers', 'ServersController@create');
+
 
 /**
  * /admins area
