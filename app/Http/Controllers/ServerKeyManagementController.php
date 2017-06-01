@@ -48,11 +48,32 @@ class ServerKeyManagementController extends Controller
     }
 
     /**
+     * Add authorized key
+     * @param Ssh $ssh
+     * @return RedirectResponse
+     */
+    public function addAuthorizedKey(Ssh $ssh) : RedirectResponse
+    {
+        return $this->addRemoveAuthorizedKey($ssh, 'add');
+    }
+
+    /**
      * View server for editing
      * @param Ssh $ssh
      * @return RedirectResponse
      */
-    public function removeAuthorizedKeys(Ssh $ssh) : RedirectResponse
+    public function removeAuthorizedKey(Ssh $ssh) : RedirectResponse
+    {
+        return $this->addRemoveAuthorizedKey($ssh, 'remove');
+    }
+
+    /**
+     * View server for editing
+     * @param Ssh $ssh
+     * @param string $action
+     * @return RedirectResponse
+     */
+    private function addRemoveAuthorizedKey(Ssh $ssh, $action) : RedirectResponse
     {
         // Get the key
         $key = request('key');
@@ -99,10 +120,16 @@ class ServerKeyManagementController extends Controller
         }
 
         // Iterate through server collection and perform action
-        $serverCollection->each(function ($server) use ($ssh, $key) {
+        $serverCollection->each(function ($server) use ($ssh, $key, $action) {
             /** @var Server $server */
+            // Add the key if action is add
+            if ($action === 'add') {
+                $ssh->addAuthorizedKey($server, $key);
+                return;
+            }
+
             // Delete the key
-            $ssh->deleteAuthorizedKey($server, $key);
+            $ssh->removeAuthorizedKey($server, $key);
         });
 
         // Put server names in array
@@ -111,10 +138,17 @@ class ServerKeyManagementController extends Controller
             $serverNameArray[] = $server->name;
         }
 
+        // Set message
+        $message = 'The specified key was ';
+        if ($action === 'add') {
+            $message .= 'added';
+        }
+        $message .= 'successfully on the following servers:';
+
         // Add a success message
         Messages::addMessage(
             'postSuccess',
-            'The specified key was deleted successfully from the following servers:',
+            $message,
             $serverNameArray,
             'success',
             true

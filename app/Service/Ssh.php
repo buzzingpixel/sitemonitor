@@ -121,13 +121,45 @@ class Ssh
     }
 
     /**
+     * Add an authorized key
+     * @param Server $server
+     * @param string $key
+     * @return bool
+     */
+    public function addAuthorizedKey(Server $server, string $key) : bool
+    {
+        // Trim the key
+        $key = trim($key);
+
+        // Get the SSH Connection
+        $conn = $this->getConnection($server);
+
+        // Check if the key exists
+        $keyExists = $conn->exec(
+            'grep "' . $key . '" $HOME/.ssh/authorized_keys;'
+        );
+
+        // If the key already exists, bail out
+        if (! empty($keyExists)) {
+            return true;
+        }
+
+        // Add the key
+        $conn->exec('echo "' . $key . '" >> $HOME/.ssh/authorized_keys;');
+
+        // We're done here
+        return true;
+    }
+
+    /**
      * Delete authorized key
      * @param Server $server
      * @param string $key
      * @return bool
      */
-    public function deleteAuthorizedKey(Server $server, string $key) : bool
+    public function removeAuthorizedKey(Server $server, string $key) : bool
     {
+        // Run the shell commands to delete the key
         $response = $this->getConnection($server)->exec(
             'if test -f $HOME/.ssh/authorized_keys; then ' .
                 'if grep -v "' . $key . '" $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; then ' .
@@ -136,6 +168,7 @@ class Ssh
             'fi'
         );
 
+        // Return the response boolean
         return ! $response;
     }
 }

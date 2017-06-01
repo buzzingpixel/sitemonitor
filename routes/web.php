@@ -98,6 +98,8 @@ Route::get(
  * /servers area
  */
 
+// SSH KEYS
+
 // List user ssh keys for servers
 Route::get('/servers/user-server-keys', 'ServersSshUserKeysController@index');
 
@@ -107,17 +109,25 @@ Route::post('/servers/user-server-keys', 'ServersSshUserKeysController@update');
 // Server key management
 Route::get('/servers/server-key-management', 'ServerKeyManagementController@index');
 
-// Server key management
+// List Authorized Keys
 Route::get(
     'servers/server-key-management/list-authorized-keys/{server}',
     'ServerKeyManagementController@listServerKeys'
 );
 
-// Server key management
+// Add authorized key
+Route::post(
+    'servers/server-key-management/add-authorized-key',
+    'ServerKeyManagementController@addAuthorizedKey'
+);
+
+// Remove authorized key
 Route::post(
     'servers/server-key-management/remove-authorized-key',
-    'ServerKeyManagementController@removeAuthorizedKeys'
+    'ServerKeyManagementController@removeAuthorizedKey'
 );
+
+// SERVERS
 
 // List servers
 Route::get('/servers', 'ServersController@index');
