@@ -113,6 +113,12 @@ Route::get(
     'ServerKeyManagementController@listServerKeys'
 );
 
+// Server key management
+Route::post(
+    'servers/server-key-management/remove-authorized-key',
+    'ServerKeyManagementController@removeAuthorizedKeys'
+);
+
 // List servers
 Route::get('/servers', 'ServersController@index');
 

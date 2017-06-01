@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label>Servers</label><br>
                         <label>
-                            <input type="checkbox" name="servers[]" value="all"> All servers
+                            <input type="checkbox" name="allServers" value="1"> All servers
                         </label>
                         @foreach ($servers as $server)
                             <?php /** @var \App\Server $server */ ?>

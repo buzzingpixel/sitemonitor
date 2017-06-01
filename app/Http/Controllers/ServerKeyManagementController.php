@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Server;
 use App\Service\Ssh;
+use App\Service\Messages;
 
 /**
  * Class ServerKeyManagementController
@@ -21,9 +24,9 @@ class ServerKeyManagementController extends Controller
 
     /**
      * Show users and admin status
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index() : View
     {
         return view('servers.serverKeyManagement', [
             'servers' => Server::orderBy('name', 'asc')->get(),
@@ -34,13 +37,90 @@ class ServerKeyManagementController extends Controller
      * View server for editing
      * @param Server $server
      * @param Ssh $ssh
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function listServerKeys(Server $server, Ssh $ssh)
+    public function listServerKeys(Server $server, Ssh $ssh) : View
     {
         return view('servers.listServerKeys', [
             'server' => $server,
             'keys' => $ssh->getAuthorizedKeys($server),
         ]);
+    }
+
+    /**
+     * View server for editing
+     * @param Ssh $ssh
+     * @return RedirectResponse
+     */
+    public function removeAuthorizedKeys(Ssh $ssh) : RedirectResponse
+    {
+        // Get the key
+        $key = request('key');
+
+        // If there is no key, return an error
+        if (! $key) {
+            // Add an error message
+            Messages::addMessage(
+                'postErrors',
+                'There were errors with your submission',
+                ['The "Key" field is required'],
+                'danger',
+                true
+            );
+
+            // Redirect back
+            return redirect('/servers/server-key-management');
+        }
+
+        // Get server params
+        $allServers = request('allServers');
+        $servers = request('servers') ?? [];
+
+        // Get servers
+        $serverCollection = null;
+        if ($allServers) {
+            $serverCollection = Server::all();
+        } elseif ($servers) {
+            $serverCollection = Server::whereIn('id', $servers)->get();
+        }
+
+        if (! $serverCollection) {
+            // Add an error message
+            Messages::addMessage(
+                'postErrors',
+                'There were errors with your submission',
+                ['You must specify servers'],
+                'danger',
+                true
+            );
+
+            // Redirect back
+            return redirect('/servers/server-key-management');
+        }
+
+        // Iterate through server collection and perform action
+        $serverCollection->each(function ($server) use ($ssh, $key) {
+            /** @var Server $server */
+            // Delete the key
+            $ssh->deleteAuthorizedKey($server, $key);
+        });
+
+        // Put server names in array
+        $serverNameArray = [];
+        foreach ($serverCollection as $server) {
+            $serverNameArray[] = $server->name;
+        }
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'The specified key was deleted successfully from the following servers:',
+            $serverNameArray,
+            'success',
+            true
+        );
+
+        // Redirect back
+        return redirect('/servers/server-key-management');
     }
 }
