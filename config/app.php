@@ -177,7 +177,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Third party service providers from Composer
+         */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        /**
+         * Custom service providers
+         */
+        App\Providers\SshServiceProvider::class,
 
     ],
 
