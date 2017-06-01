@@ -101,6 +101,9 @@ Route::get(
 // List user ssh keys for servers
 Route::get('/servers/user-server-keys', 'ServersSshUserKeysController@index');
 
+// Server key management
+Route::get('/servers/server-key-management', 'ServerKeyManagementController@index');
+
 // Update user ssh keys for servers
 Route::post('/servers/user-server-keys', 'ServersSshUserKeysController@update');
 

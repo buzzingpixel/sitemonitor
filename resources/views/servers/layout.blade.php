@@ -8,6 +8,10 @@ $nav = [
     [
         'title' => 'User/Server Keys',
         'segment' => 'user-server-keys'
+    ],
+    [
+        'title' => 'Server Key Management',
+        'segment' => 'server-key-management'
     ]
 ];
 
@@ -43,5 +47,11 @@ $nav = [
         </div>
     </div>
 
-    @yield('serverContent')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @yield('serverContent')
+            </div>
+        </div>
+    </div>
 @endsection
