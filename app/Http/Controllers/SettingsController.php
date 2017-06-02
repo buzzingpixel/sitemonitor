@@ -36,7 +36,7 @@ class SettingsController extends Controller
         /** @var User $currentUser */
         $currentUser = $auth->user();
 
-        return view('settings', [
+        return view('user.settings', [
             'user' => $currentUser,
             'postErrors' => $this->postErrors,
             'postValues' => $this->postValues
