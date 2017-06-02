@@ -1,4 +1,6 @@
-@extends('user.layout')
+@extends('user.layout', [
+    'pageTitle' => 'Change Password'
+])
 
 @section('innerContent')
 

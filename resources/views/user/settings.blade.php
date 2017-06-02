@@ -4,7 +4,9 @@
 
 ?>
 
-@extends('user.layout')
+@extends('user.layout', [
+    'pageTitle' => 'User Settings'
+])
 
 @section('innerContent')
 

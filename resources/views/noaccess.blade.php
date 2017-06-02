@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'pageTitle' => 'Access Denied'
+])
 
 @section('content')
     <div class="container">

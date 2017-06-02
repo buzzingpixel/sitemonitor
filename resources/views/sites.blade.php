@@ -6,7 +6,9 @@
 
 ?>
 
-@extends('layouts.app')
+@extends('layouts.app', [
+    'pageTitle' => 'Sites'
+])
 
 @section('content')
     <div class="container">

@@ -4,7 +4,9 @@
 
 ?>
 
-@extends('servers.layout')
+@extends('servers.layout', [
+    'pageTitle' => 'Server Key Management'
+])
 
 @section('serverContent')
     @if ($servers->count())

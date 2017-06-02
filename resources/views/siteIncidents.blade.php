@@ -4,7 +4,9 @@
 
 ?>
 
-@extends('layouts.app')
+@extends('layouts.app', [
+    'pageTitle' => "{$monitoredSite->name} Incidents"
+])
 
 @section('content')
 <div class="container">

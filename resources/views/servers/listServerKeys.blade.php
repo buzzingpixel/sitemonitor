@@ -5,7 +5,9 @@
 
 ?>
 
-@extends('servers.layout')
+@extends('servers.layout', [
+    'pageTitle' => "Authorized Keys on {$server->name}"
+])
 
 @section('serverContent')
     <a href="/servers/server-key-management">« Back to Server Key Management</a>

@@ -3,6 +3,11 @@
 /** @var \Illuminate\Database\Eloquent\Collection $servers */
 /** @var array $serverInputs */
 
+$pageTitle = 'Pings';
+if (isset($editServer)) {
+    $pageTitle = "Editing {$editServer->name}";
+}
+
 ?>
 
 @extends('servers.layout')

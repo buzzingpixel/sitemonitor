@@ -5,7 +5,9 @@
 
 ?>
 
-@extends('servers.layout')
+@extends('servers.layout', [
+    'pageTitle' => 'User/Server SSH Keys'
+])
 
 @section('serverContent')
 

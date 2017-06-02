@@ -4,6 +4,11 @@
 /** @var array $postErrors */
 /** @var array $postValues */
 
+$pageTitle = 'Pings';
+if (isset($editPing)) {
+    $pageTitle = "Editing {$editPing->name}";
+}
+
 ?>
 
 @extends('layouts.app')
