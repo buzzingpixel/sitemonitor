@@ -1,0 +1,6 @@
+.u-overflow-scroll {
+    overflow: scroll;
+
+    // Make sure iOS uses scrolling
+    -webkit-overflow-scrolling: touch;
+}

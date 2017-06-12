@@ -19,7 +19,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">User Privileges</div>
 
-                            <div class="panel-body">
+                            <div class="panel-body u-overflow-scroll">
                                 <table class="table">
                                     <thead>
                                     <tr>

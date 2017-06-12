@@ -14,10 +14,14 @@ if (isset($editServer)) {
 
 @section('serverContent')
 
+    @if (isset($editServer))
+    <a href="/servers">&laquo; Back to servers</a><br><br>
+    @endif
+
     @if ($servers->count())
         <div class="panel panel-default">
             <div class="panel-heading">Servers</div>
-            <div class="panel-body">
+            <div class="panel-body u-overflow-scroll">
                 <table class="table">
                     <thead>
                         <tr>

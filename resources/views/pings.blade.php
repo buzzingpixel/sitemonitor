@@ -17,12 +17,15 @@ if (isset($editPing)) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                @if (isset($editPing))
+                <a href="/pings">&laquo; Back to pings</a><br><br>
+                @endif
 
                 @if ($pings->count())
                     <div class="panel panel-default">
                         <div class="panel-heading">Pings</div>
 
-                            <div class="panel-body">
+                            <div class="panel-body u-overflow-scroll">
                                 <table class="table">
                                     <thead>
                                     <tr>

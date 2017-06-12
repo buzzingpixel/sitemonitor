@@ -20,7 +20,7 @@
 
                     @if ($monitoredSites->count())
 
-                        <div class="panel-body">
+                        <div class="panel-body u-overflow-scroll">
                             <table class="table">
                                 <thead>
                                 <tr>
