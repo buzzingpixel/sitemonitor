@@ -46,4 +46,17 @@ class MonitoredSite extends Model
             return trim($i);
         }, explode(',', $this->urls));
     }
+
+    /**
+     * @param $val
+     * @return Carbon|null
+     */
+    public function getLastCheckedAttribute($val)
+    {
+        if (! $val) {
+            return null;
+        }
+
+        return new Carbon($val);
+    }
 }

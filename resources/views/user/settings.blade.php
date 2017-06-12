@@ -15,7 +15,6 @@ $timezone = new \Camroncade\Timezone\Timezone;
         <div class="panel-heading">General Settings</div>
 
         <div class="panel-body">
-            {{ Auth::user()->timezone }} - asdf
             <form method="POST" action="/settings" class="form-horizontal">
                 {{ csrf_field() }}
                 <div class="form-group">

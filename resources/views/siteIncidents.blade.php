@@ -1,6 +1,7 @@
 <?php
 
 /** @var \App\MonitoredSite $monitoredSite */
+$timezone = new \Camroncade\Timezone\Timezone;
 
 ?>
 
@@ -32,7 +33,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ $incident->created_at }}
+                                        {{ $timezone->convertFromUTC($incident->created_at, Auth::user()->timezone, 'Y-m-d g:i:s a') }}
                                     </td>
                                 </tr>
                             @endforeach

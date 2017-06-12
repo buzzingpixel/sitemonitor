@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Collection $pings */
 /** @var array $postErrors */
 /** @var array $postValues */
+$timezone = new \Camroncade\Timezone\Timezone;
 
 $pageTitle = 'Pings';
 if (isset($editPing)) {
@@ -53,7 +54,7 @@ if (isset($editPing)) {
                                                         Ping URL
                                                     </a>
                                                 </td>
-                                                <td>{{ $ping->asCarbon('last_ping') }}</td>
+                                                <td>{{ $timezone->convertFromUTC($ping->asCarbon('last_ping'), Auth::user()->timezone, 'Y-m-d g:i:s a') }}</td>
                                                 <td>
                                                     @if ($ping->getHealthStatus() === 'pastWarning')
                                                         Missing
