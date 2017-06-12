@@ -68,7 +68,7 @@
                     @endif
                 </div>
                 <div class="form-group @if (isset($postErrors['key'])) has-error @endif">
-                    <label for="key">Public Key</label>
+                    <label for="key">Private Key</label>
                     <textarea
                         name="key"
                         id="key"
