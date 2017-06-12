@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property bool $access_servers Whether user can access servers
  * @property Collection $sshKeys
  * @property Collection $sshServerUserKeys
+ * @property string $timezone
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
  * @mixin \Eloquent
@@ -44,7 +45,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -62,5 +64,13 @@ class User extends Authenticatable
     public function sshServerUserKeys()
     {
         return $this->hasMany(SshServerUserKey::class);
+    }
+
+    /**
+     * Get the user's timezone
+     */
+    public function getTimezoneAttribute($value)
+    {
+        return $value ?: 'UTC';
     }
 }

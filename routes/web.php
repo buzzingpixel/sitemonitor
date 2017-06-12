@@ -163,6 +163,9 @@ Route::post('/admins', 'AdminsController@update');
 // Display settings
 Route::get('/settings', 'SettingsController@index');
 
+// Display settings
+Route::post('/settings', 'SettingsController@update');
+
 // Add SSH Key
 Route::post('/settings/add-ssh-key', 'SettingsController@addSshKey');
 

@@ -45,6 +45,35 @@ class SettingsController extends Controller
     }
 
     /**
+     * Update general settings
+     * @param Guard $auth
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Guard $auth)
+    {
+        /** @var User $currentUser */
+        $currentUser = $auth->user();
+
+        // Update the user
+        $currentUser->timezone = request('timezone');
+
+        // Save the user
+        $currentUser->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            'Your settings have been saved',
+            'success',
+            true
+        );
+
+        // Redirect to settings
+        return redirect('/settings');
+    }
+
+    /**
      * Add SSH Key
      * @param Guard $auth
      * @return \Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
