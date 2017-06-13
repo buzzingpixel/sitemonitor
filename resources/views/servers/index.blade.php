@@ -7,6 +7,8 @@
 $pageTitle = 'Servers';
 if (isset($editServer)) {
     $pageTitle = "Editing {$editServer->name}";
+} elseif (isset($editServerGroup)) {
+    $pageTitle = "Editing Server Group {$editServerGroup->name}";
 }
 
 ?>
@@ -15,7 +17,7 @@ if (isset($editServer)) {
 
 @section('serverContent')
 
-    @if (isset($editServer))
+    @if (isset($editServer) || isset($editServerGroup))
     <a href="/servers">&laquo; Back to servers</a><br><br>
     @endif
 
@@ -25,7 +27,8 @@ if (isset($editServer)) {
                 @if ($serverGroup->servers->count())
                     <?php /** @var \App\ServerGroup $serverGroup */ ?>
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ $serverGroup->name }}</div>
+                        <div class="panel-heading">{{ $serverGroup->name }} (<a
+                                    href="/servers/edit-group/{{ $serverGroup->id }}">edit</a>)</div>
                         <div class="panel-body u-overflow-scroll">
                             <table class="table">
                                 <thead>
@@ -189,7 +192,7 @@ if (isset($editServer)) {
                         </button>
                     </div>
                 </form>
-                @if (isset($editServerGroup))
+                {{--@if (isset($editServerGroup))
                     <br>
                     <form method="POST" action="/servers/delete-group/{{ $editServerGroup->id }}">
                         {{ csrf_field() }}
@@ -197,7 +200,7 @@ if (isset($editServer)) {
                             <button type="submit" class="btn btn-danger">Delete Server Group</button>
                         </div>
                     </form>
-                @endif
+                @endif--}}
             </div>
         </div>
     @endif

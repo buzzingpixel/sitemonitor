@@ -130,6 +130,12 @@ Route::post(
 // Add server group
 Route::post('/servers/add-group', 'ServerGroupsController@create');
 
+// View server group
+Route::get('/servers/edit-group/{serverGroup}', 'ServerGroupsController@view');
+
+// Edit server group
+Route::post('/servers/edit-group/{serverGroup}', 'ServerGroupsController@edit');
+
 // SERVERS
 
 // List servers
