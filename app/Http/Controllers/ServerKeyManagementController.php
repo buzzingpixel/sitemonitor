@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Server;
 use App\Service\Ssh;
 use App\Service\Messages;
+use App\ServerGroup;
 
 /**
  * Class ServerKeyManagementController
@@ -30,7 +32,11 @@ class ServerKeyManagementController extends Controller
     public function index() : View
     {
         return view('servers.serverKeyManagement', [
-            'servers' => Server::orderBy('name', 'asc')->get(),
+            'servers' => new Collection(),
+            'serverGroups' => ServerGroup::orderBy('name', 'asc')->get(),
+            'unGroupedServers' => Server::doesntHave('serverGroup')
+                ->orderBy('name', 'asc')
+                ->get(),
         ]);
     }
 

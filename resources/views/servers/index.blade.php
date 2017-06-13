@@ -27,8 +27,11 @@ if (isset($editServer)) {
                 @if ($serverGroup->servers->count())
                     <?php /** @var \App\ServerGroup $serverGroup */ ?>
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ $serverGroup->name }} (<a
-                                    href="/servers/edit-group/{{ $serverGroup->id }}">edit</a>)</div>
+                        <div
+                            class="panel-heading"
+                        >
+                            {{ $serverGroup->name }} (<a href="/servers/edit-group/{{ $serverGroup->id }}">edit</a>)
+                        </div>
                         <div class="panel-body u-overflow-scroll">
                             <table class="table">
                                 <thead>
