@@ -30,7 +30,7 @@
                             <tr>
                                 <td>{{ $server->name }}</td>
                                 <td>
-                                    <select name="keys[{{ $server->id  }}]">
+                                    <select name="keys[{{ $server->id  }}]" class="form-control">
                                         <option value="default">Default Key</option>
                                         @foreach($sshKeys as $sshKey)
                                             <?php /** @var \App\SshKey $sshKey */ ?>
