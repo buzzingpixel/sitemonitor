@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property int $port
  * @property string $username
  * @property Collection $sshServerUserKeys
+ * @property ServerGroup $serverGroup
  * @property Carbon $created_at When the record was created
  * @property Carbon updated_at When the record was updated
  * @mixin \Eloquent
@@ -84,5 +85,13 @@ class Server extends Model
     {
         return $this->hasMany(SshServerUserKey::class)
             ->where('user_id', \Auth::getUser()->id);
+    }
+
+    /**
+     * ServerGroup
+     */
+    public function serverGroup()
+    {
+        return $this->belongsTo(ServerGroup::class);
     }
 }
