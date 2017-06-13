@@ -1,6 +1,7 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Collection $servers */
+/** @var \Illuminate\Database\Eloquent\Collection $serverGroups */
+/** @var \Illuminate\Database\Eloquent\Collection $unGroupedServers */
 /** @var array $serverInputs */
 
 $pageTitle = 'Servers';
@@ -18,32 +19,69 @@ if (isset($editServer)) {
     <a href="/servers">&laquo; Back to servers</a><br><br>
     @endif
 
-    @if ($servers->count())
+    @if ($serverGroups->count())
+        @foreach ($serverGroups as $serverGroup)
+            @if ($serverGroup->servers->count())
+                <?php /** @var \App\ServerGroup $serverGroup */ ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ $serverGroup->name }}</div>
+                    <div class="panel-body u-overflow-scroll">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Port</th>
+                                <th>Username</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($serverGroup->servers as $server)
+                                <?php /** @var \App\Server $server */ ?>
+                                <tr>
+                                    <td>{{ $server->name }}</td>
+                                    <td>{{ $server->address }}</td>
+                                    <td>{{ $server->port }}</td>
+                                    <td>{{ $server->username }}</td>
+                                    <td><a href="/servers/{{ $server->id }}">Edit</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    @endif
+
+    @if ($unGroupedServers->count())
         <div class="panel panel-default">
-            <div class="panel-heading">Servers</div>
+            <div class="panel-heading">Un-grouped</div>
             <div class="panel-body u-overflow-scroll">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Port</th>
-                            <th>Username</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Port</th>
+                        <th>Username</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach ($servers as $server)
-                            <?php /** @var \App\Server $server */ ?>
-                            <tr>
-                                <td>{{ $server->name }}</td>
-                                <td>{{ $server->address }}</td>
-                                <td>{{ $server->port }}</td>
-                                <td>{{ $server->username }}</td>
-                                <td><a href="/servers/{{ $server->id }}">Edit</a></td>
-                            </tr>
-                        @endforeach
+                    @foreach ($unGroupedServers as $server)
+                        <?php /** @var \App\Server $server */ ?>
+                        <tr>
+                            <td>{{ $server->name }}</td>
+                            <td>{{ $server->address }}</td>
+                            <td>{{ $server->port }}</td>
+                            <td>{{ $server->username }}</td>
+                            <td><a href="/servers/{{ $server->id }}">Edit</a></td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

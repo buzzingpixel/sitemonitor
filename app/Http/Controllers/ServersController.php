@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Server;
 use App\Service\Messages;
 use Illuminate\Database\Eloquent\Collection;
+use App\ServerGroup;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class ServersController
@@ -33,7 +35,10 @@ class ServersController extends Controller
     public function index()
     {
         return view('servers.index', [
-            'servers' => Server::orderBy('name', 'asc')->get(),
+            'serverGroups' => ServerGroup::orderBy('name', 'asc')->get(),
+            'unGroupedServers' => Server::doesntHave('serverGroup')
+                ->orderBy('name', 'asc')
+                ->get(),
             'serverInputs' => Server::$inputs,
             'postErrors' => $this->postErrors,
             'postValues' => $this->postValues

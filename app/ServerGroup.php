@@ -36,6 +36,6 @@ class ServerGroup extends Model
      */
     public function servers()
     {
-        return $this->hasMany(Server::class);
+        return $this->hasMany(Server::class)->orderBy('name', 'asc');
     }
 }
