@@ -127,6 +127,9 @@ Route::post(
     'ServerKeyManagementController@removeAuthorizedKey'
 );
 
+// Add server group
+Route::post('/servers/add-group', 'ServerGroupsController@create');
+
 // SERVERS
 
 // List servers

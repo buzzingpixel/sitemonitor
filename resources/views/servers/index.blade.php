@@ -100,7 +100,7 @@ if (isset($editServer)) {
             <form
                 method="POST"
                 @if (isset($editServer))
-                action="/servers/{{$editServer->id}}"
+                action="/servers/{{ $editServer->id }}"
                 @else
                 action="/servers"
                 @endif
@@ -125,6 +125,55 @@ if (isset($editServer)) {
                     {{ csrf_field() }}
                     <div class="form-group">
                         <button type="submit" class="btn btn-danger">Delete Server</button>
+                    </div>
+                </form>
+            @endif
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @if (isset($editServerGroup))
+                Editing Server Group: {{ $editServerGroup->name }}
+            @else
+                Add a Server Group
+            @endif
+        </div>
+        <div class="panel-body">
+            <form
+                method="POST"
+                @if (isset($editServerGroup))
+                action="/servers/edit-group/{{ $editServerGroup->id }}"
+                @else
+                action="/servers/add-group"
+                @endif
+            >
+                {{ csrf_field() }}
+                @include('formPartials.text', [
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'groupName',
+                        'title' => 'Group Name',
+                        'placeholder' => 'My Cool Group',
+                        'value' => isset($editServerGroup) ? $editServerGroup->name : ''
+                    ]
+                ])
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        @if (isset($editServerGroup))
+                            Save Server Group
+                        @else
+                            Add Server Group
+                        @endif
+                    </button>
+                </div>
+            </form>
+            @if (isset($editServerGroup))
+                <br>
+                <form method="POST" action="/servers/delete-group/{{ $editServerGroup->id }}">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger">Delete Server Group</button>
                     </div>
                 </form>
             @endif
