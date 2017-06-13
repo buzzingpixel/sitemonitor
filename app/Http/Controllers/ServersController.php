@@ -110,7 +110,8 @@ class ServersController extends Controller
         }
 
         return view('servers.index', [
-            'servers' => new Collection(),
+            'serverGroups' => ServerGroup::orderBy('name', 'asc')->get(),
+            'unGroupedServers' => new Collection(),
             'serverInputs' => Server::$inputs,
             'editServer' => $server,
             'postErrors' => $this->postErrors,
@@ -140,6 +141,9 @@ class ServersController extends Controller
                     'The "' . $input['title'] . ' " field is required';
             }
         }
+
+        // Set the server group
+        $this->postValues['server_group_id'] = request('server_group_id');
 
         // If there are post errors, show them
         if (count($this->postErrors)) {

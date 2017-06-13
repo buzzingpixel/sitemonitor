@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $address
  * @property int $port
  * @property string $username
+ * @property int $server_group_id
  * @property Collection $sshServerUserKeys
  * @property ServerGroup $serverGroup
  * @property Carbon $created_at When the record was created
@@ -36,6 +37,7 @@ class Server extends Model
         'address',
         'port',
         'username',
+        'server_group_id'
     ];
 
     /**
