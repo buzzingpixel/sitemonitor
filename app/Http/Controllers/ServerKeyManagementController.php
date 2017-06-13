@@ -48,9 +48,35 @@ class ServerKeyManagementController extends Controller
      */
     public function listServerKeys(Server $server, Ssh $ssh) : View
     {
+        $keys = $ssh->getAuthorizedKeys($server);
+
+        $error = false;
+
+        if (is_string($keys) || $keys === false) {
+            if ($keys === 'noKey') {
+                $error = 'There is no key for this server and you have not selected a default key';
+            } elseif ($keys === 'badCredentials') {
+                $error = 'The username or key for this server is incorrect';
+            } elseif ($keys === 'cannotConnect') {
+                $error = 'Could not establish connection';
+            } else {
+                $error = 'An unknown error occurred';
+            }
+        }
+
+        if ($error) {
+            // Add an error message
+            Messages::addMessage(
+                'postErrors',
+                'The following error was encountered',
+                $error,
+                'danger'
+            );
+        }
+
         return view('servers.listServerKeys', [
             'server' => $server,
-            'keys' => $ssh->getAuthorizedKeys($server),
+            'keys' => (is_string($keys) || $keys === false) ? new Collection() : $keys,
         ]);
     }
 
@@ -126,40 +152,68 @@ class ServerKeyManagementController extends Controller
             return redirect('/servers/server-key-management');
         }
 
+        // Array for errors
+        $errors = new \stdClass();
+        $errors->items = [];
+
+        // Successful servers
+        $success = new \stdClass();
+        $success->items = [];
+
         // Iterate through server collection and perform action
-        $serverCollection->each(function ($server) use ($ssh, $key, $action) {
+        $serverCollection->each(function ($server) use ($ssh, $key, $action, $errors, $success) {
             /** @var Server $server */
             // Add the key if action is add
             if ($action === 'add') {
-                $ssh->addAuthorizedKey($server, $key);
-                return;
+                $response = $ssh->addAuthorizedKey($server, $key);
+            } else {
+                // Delete the key
+                $response = $ssh->removeAuthorizedKey($server, $key);
             }
 
-            // Delete the key
-            $ssh->removeAuthorizedKey($server, $key);
+            if ($response === 'noKey') {
+                $errors->items[] = "{$server->name}: There is no key for this server and you have not selected a default key";
+            } elseif ($response === 'badCredentials') {
+                $errors->items[] = "{$server->name}: The username or key for this server is incorrect";
+            } elseif ($response === 'cannotConnect') {
+                $errors->items[] = "{$server->name}: Could not establish connection";
+            } elseif ($response === false) {
+                $errors->items[] = "{$server->name}: An unknown error occurred";
+            } else {
+                $success->items[] = $server->name;
+            }
         });
 
-        // Put server names in array
-        $serverNameArray = [];
-        foreach ($serverCollection as $server) {
-            $serverNameArray[] = $server->name;
+        if ($success->items) {
+            // Set message
+            $message = 'The specified key was ';
+            if ($action === 'add') {
+                $message .= 'added';
+            } else {
+                $message .= 'deleted';
+            }
+            $message .= ' successfully on the following servers:';
+
+            // Add a success message
+            Messages::addMessage(
+                'postSuccess',
+                $message,
+                $success->items,
+                'success',
+                true
+            );
         }
 
-        // Set message
-        $message = 'The specified key was ';
-        if ($action === 'add') {
-            $message .= 'added';
+        if ($errors->items) {
+            // Add an error message
+            Messages::addMessage(
+                'postErrors',
+                'The following errors were encountered',
+                $errors->items,
+                'danger',
+                true
+            );
         }
-        $message .= 'successfully on the following servers:';
-
-        // Add a success message
-        Messages::addMessage(
-            'postSuccess',
-            $message,
-            $serverNameArray,
-            'success',
-            true
-        );
 
         // Redirect back
         return redirect('/servers/server-key-management');

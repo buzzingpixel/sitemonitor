@@ -29,9 +29,9 @@ class Ssh
     /**
      * Get SSH Connection
      * @param Server $server
-     * @return SSH2
+     * @return SSH2|string
      */
-    public function getConnection(Server $server) : SSH2
+    public function getConnection(Server $server)
     {
         // Check for user's SSH key specific to this server
         $sshKey = $this->user->sshServerUserKeys()
@@ -50,10 +50,7 @@ class Ssh
 
         // If there is still no key, throw an error
         if (! $sshKey) {
-            abort(
-                500,
-                'You have not selected a key for this server nor specified a default key'
-            );
+            return 'noKey';
         }
 
         // Get the ssh client
@@ -71,16 +68,10 @@ class Ssh
         // Make sure log in was successful
         if (! $status) {
             if ($ssh2->isConnected()) {
-                abort(
-                    500,
-                    'Bad username or key'
-                );
+                return 'badCredentials';
             }
 
-            abort(
-                500,
-                'Unable to establish an SSH connection with the server'
-            );
+            return 'cannotConnect';
         }
 
         // Return the SSH connection
@@ -90,18 +81,23 @@ class Ssh
     /**
      * Get authorized keys
      * @param Server $server
-     * @return ModelCollection
+     * @return ModelCollection|string
      */
-    public function getAuthorizedKeys(Server $server) : ModelCollection
+    public function getAuthorizedKeys(Server $server)
     {
         // Create a collection for the keys
         $collection = new ModelCollection();
 
+        // Get the SSH Connection
+        $conn = $this->getConnection($server);
+
+        // If the connection is a string, it's an error, return it
+        if (is_string($conn)) {
+            return $conn;
+        }
+
         // Connect to the server and get the keys
-        $keys = explode(
-            "\n",
-            $this->getConnection($server)->exec('cat ~/.ssh/authorized_keys')
-        );
+        $keys = explode("\n", $conn->exec('cat ~/.ssh/authorized_keys'));
 
         // Iterate through the keys, create a model, and add to the collection
         foreach ($keys as $key) {
@@ -124,15 +120,20 @@ class Ssh
      * Add an authorized key
      * @param Server $server
      * @param string $key
-     * @return bool
+     * @return bool|string
      */
-    public function addAuthorizedKey(Server $server, string $key) : bool
+    public function addAuthorizedKey(Server $server, string $key)
     {
         // Trim the key
         $key = trim($key);
 
         // Get the SSH Connection
         $conn = $this->getConnection($server);
+
+        // If the connection is a string, it's an error, return it
+        if (is_string($conn)) {
+            return $conn;
+        }
 
         // Check if the key exists
         $keyExists = $conn->exec(
@@ -155,12 +156,20 @@ class Ssh
      * Delete authorized key
      * @param Server $server
      * @param string $key
-     * @return bool
+     * @return bool|string
      */
-    public function removeAuthorizedKey(Server $server, string $key) : bool
+    public function removeAuthorizedKey(Server $server, string $key)
     {
+        // Get the SSH Connection
+        $conn = $this->getConnection($server);
+
+        // If the connection is a string, it's an error, return it
+        if (is_string($conn)) {
+            return $conn;
+        }
+
         // Run the shell commands to delete the key
-        $response = $this->getConnection($server)->exec(
+        $response = $conn($server)->exec(
             'if test -f $HOME/.ssh/authorized_keys; then ' .
                 'if grep -v "' . $key . '" $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; then ' .
                     'cat $HOME/.ssh/tmp > $HOME/.ssh/authorized_keys && rm $HOME/.ssh/tmp; ' .
