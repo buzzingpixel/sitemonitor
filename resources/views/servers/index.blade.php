@@ -3,7 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Collection $servers */
 /** @var array $serverInputs */
 
-$pageTitle = 'Pings';
+$pageTitle = 'Servers';
 if (isset($editServer)) {
     $pageTitle = "Editing {$editServer->name}";
 }

@@ -20,8 +20,11 @@ class CreateServerGroupsTable extends Migration
         Schema::create('server_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('server_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('servers', function (Blueprint $table) {
+            $table->integer('server_group_id')->unsigned()->nullable();
         });
     }
 
@@ -33,5 +36,9 @@ class CreateServerGroupsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('server_groups');
+
+        Schema::table('servers', function (Blueprint $table) {
+            $table->dropColumn('server_group_id');
+        });
     }
 }
