@@ -1,0 +1,8 @@
+{
+    "proxy": false,
+    "watch": [
+        "config/*/**",
+        "resources/*/**",
+        "routes/*/**"
+    ]
+}

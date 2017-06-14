@@ -42,6 +42,7 @@ $mainNav = [
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -159,5 +160,6 @@ $mainNav = [
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/script.min.js') }}"></script>
 </body>
 </html>
