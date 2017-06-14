@@ -37,8 +37,8 @@ $scriptContent = $scriptContent ?? '';
             <textarea
                 name="scripts[{{ $id }}][scriptContent]"
                 id="scripts[{{ $id }}][scriptContent]"
-                rows="10"
-                class="form-control"
+                rows="1"
+                class="form-control js-code-editor"
             >{{ $scriptContent }}</textarea>
         </div>
         <div class="form-group">

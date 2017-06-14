@@ -23,7 +23,11 @@ function runEditScriptSet(F, W) {
                 $.ajax({
                     url: '/servers/scripts/script-template',
                     success: function(html) {
-                        self.$el.find('.js-scripts-container').append(html);
+                        var $html = $(html);
+                        self.$el.find('.js-scripts-container').append($html);
+                        F.controller.construct('CodeEditor', {
+                            el: $html.find('.js-code-editor').get(0)
+                        });
                     }
                 });
             },
@@ -33,7 +37,7 @@ function runEditScriptSet(F, W) {
                 $script.find('.js-script-delete').val('true');
                 $script.hide();
             },
-            'click .js-scripts-collapse-expand': function(e) {
+            'click .js-scripts-collapse-expand': function() {
                 // Save a reference to the controller
                 var self = this;
 

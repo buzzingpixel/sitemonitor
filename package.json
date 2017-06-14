@@ -1,45 +1,45 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "axios": "^0.15.3",
-        "bootstrap-sass": "^3.3.7",
-        "cross-env": "^3.2.3",
-        "jquery": "^3.1.1",
-        "laravel-mix": "0.*",
-        "lodash": "^4.17.4",
-        "vue": "^2.1.10"
-    },
-
-    "name" : "sitemonitor",
-    "version": "0.0.1",
-    "description": "sitemonitor",
-    "homepage": "https://github.com/buzzingpixel/sitemonitor",
-    "bugs": "https://github.com/BuzzingPixelFabricator/fab-project/issues",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/BuzzingPixelFabricator/fab-project.git"
-    },
-    "license": "Apache-2.0",
-    "author": "BuzzingPixel, LLC",
-    "contributors": [
-        {
-            "name": "TJ Draper",
-            "url": "https://buzzingpixel.com"
-        }
-    ],
-    "dependencies": {
-        "fab.grunt-build": "^2.0.0",
-        "fab.controller": "^1.1.0",
-        "fab.model": "^1.1.0",
-        "fabmixins": "^1.1.0"
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "axios": "^0.15.3",
+    "bootstrap-sass": "^3.3.7",
+    "cross-env": "^3.2.3",
+    "jquery": "^3.1.1",
+    "laravel-mix": "0.*",
+    "lodash": "^4.17.4",
+    "vue": "^2.1.10"
+  },
+  "name": "sitemonitor",
+  "version": "0.0.1",
+  "description": "sitemonitor",
+  "homepage": "https://github.com/buzzingpixel/sitemonitor",
+  "bugs": "https://github.com/BuzzingPixelFabricator/fab-project/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BuzzingPixelFabricator/fab-project.git"
+  },
+  "license": "Apache-2.0",
+  "author": "BuzzingPixel, LLC",
+  "contributors": [
+    {
+      "name": "TJ Draper",
+      "url": "https://buzzingpixel.com"
     }
+  ],
+  "dependencies": {
+    "fab.assets": "^1.1.0",
+    "fab.controller": "^1.1.0",
+    "fab.grunt-build": "^2.0.0",
+    "fab.model": "^1.1.0",
+    "fabmixins": "^1.1.0"
+  }
 }

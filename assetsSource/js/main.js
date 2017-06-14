@@ -17,6 +17,13 @@ function runMain(F, W) {
             el: this
         });
     });
+
+    // Run edit areas on page
+    $('.js-code-editor').each(function() {
+        F.controller.construct('CodeEditor', {
+            el: this
+        });
+    });
 }
 
 runMain(window.FAB, window);
