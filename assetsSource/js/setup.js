@@ -5,5 +5,6 @@ window.fabDependenciesLoaded = function() {
 
     return window.FAB.controller !== undefined &&
         window.$ !== undefined &&
-        window.doT !== undefined;
+        window.doT !== undefined &&
+        window.Sortable !== undefined;
 };

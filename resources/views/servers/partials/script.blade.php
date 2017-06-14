@@ -20,7 +20,7 @@ $scriptContent = $scriptContent ?? '';
         class="js-script-delete"
     >
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-move u-cursor-move" aria-hidden="true"></span> Script
+        <span class="glyphicon glyphicon-move u-cursor-move js-script-sort-handle" aria-hidden="true"></span> Script
     </div>
     <div class="panel-body">
         <div class="form-group ">
