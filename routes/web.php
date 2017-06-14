@@ -127,6 +127,8 @@ Route::post(
     'ServerKeyManagementController@removeAuthorizedKey'
 );
 
+// SERVER GROUPS
+
 // Add server group
 Route::post('/servers/add-group', 'ServerGroupsController@create');
 
@@ -135,6 +137,14 @@ Route::get('/servers/edit-group/{serverGroup}', 'ServerGroupsController@view');
 
 // Edit server group
 Route::post('/servers/edit-group/{serverGroup}', 'ServerGroupsController@edit');
+
+// SCRIPTS
+
+// Show scripts
+Route::get('/servers/scripts', 'ScriptsController@index');
+
+// Add Script Set
+Route::post('/servers/scripts/add-script-set', 'ScriptsController@addSet');
 
 // SERVERS
 

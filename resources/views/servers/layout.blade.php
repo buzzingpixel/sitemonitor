@@ -12,6 +12,10 @@ $nav = [
     [
         'title' => 'Server Key Management',
         'segment' => 'server-key-management'
+    ],
+    [
+        'title' => 'Scripts',
+        'segment' => 'scripts'
     ]
 ];
 
