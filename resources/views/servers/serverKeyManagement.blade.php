@@ -41,7 +41,11 @@ $serverSelectPadding = number_format(($serverSelectPaddingCount * 18.5));
                                     <?php /** @var \App\Server $server */ ?>
                                     <tr>
                                         <td>{{ $server->name }}</td>
-                                        <td><a href="/servers/server-key-management/list-authorized-keys/{{ $server->id }}">List Authorized Keys</a></td>
+                                        <td>
+                                            <a class="btn btn-default" href="/servers/server-key-management/list-authorized-keys/{{ $server->id }}">
+                                                List Authorized Keys
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

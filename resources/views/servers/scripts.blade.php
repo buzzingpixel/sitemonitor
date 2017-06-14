@@ -51,18 +51,12 @@ $pageTitle = 'Scripts';
                         <tr>
                             <td>{{ $scriptSet->name }}</td>
                             <td>
-                                <a
-                                    class="btn btn-default"
-                                    href="/servers/scripts/{{ $scriptSet->id }}"
-                                >
+                                <a class="btn btn-default" href="/servers/scripts/{{ $scriptSet->id }}">
                                     Edit Set
                                 </a>
                             </td>
                             <td>
-                                <a
-                                    class="btn btn-default"
-                                    href="/servers/scripts/run/{{ $scriptSet->id }}"
-                                >
+                                <a class="btn btn-default" href="/servers/scripts/run/{{ $scriptSet->id }}">
                                     Run Set&hellip;
                                 </a>
                             </td>

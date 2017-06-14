@@ -59,7 +59,11 @@ if (isset($editServer)) {
                                         <td>{{ $server->address }}</td>
                                         <td>{{ $server->port }}</td>
                                         <td>{{ $server->username }}</td>
-                                        <td><a href="/servers/{{ $server->id }}">Edit</a></td>
+                                        <td>
+                                            <a class="btn btn-default" href="/servers/{{ $server->id }}">
+                                                Edit
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -93,7 +97,11 @@ if (isset($editServer)) {
                                     <td>{{ $server->address }}</td>
                                     <td>{{ $server->port }}</td>
                                     <td>{{ $server->username }}</td>
-                                    <td><a href="/servers/{{ $server->id }}">Edit</a></td>
+                                    <td>
+                                        <a class="btn btn-default" href="/servers/{{ $server->id }}">
+                                            Edit
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

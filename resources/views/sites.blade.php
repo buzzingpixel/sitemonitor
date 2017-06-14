@@ -46,8 +46,16 @@ $timezone = new \Camroncade\Timezone\Timezone;
                                             </td>
                                             <td>@if ($monitoredSite->has_error) Down @else &#x1f44d; @endif</td>
                                             <td>{{ $timezone->convertFromUTC($monitoredSite->last_checked, Auth::user()->timezone, 'Y-m-d g:i:s a') }}</td>
-                                            <td><a href="/sites/incidents/{{ $monitoredSite->id }}">View</a></td>
-                                            <td><a href="/sites/edit/{{ $monitoredSite->id }}">Edit</a></td>
+                                            <td>
+                                                <a class="btn btn-default" href="/sites/incidents/{{ $monitoredSite->id }}">
+                                                    View
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-default" href="/sites/edit/{{ $monitoredSite->id }}">
+                                                    Edit
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

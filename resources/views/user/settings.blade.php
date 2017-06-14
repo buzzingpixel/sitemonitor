@@ -58,10 +58,16 @@ $timezone = new \Camroncade\Timezone\Timezone;
                                     @if ($sshKey->is_default)
                                         &#x1f44d;
                                     @else
-                                        <a href="/settings/make-default-ssh-key/{{ $sshKey->id }}">Make Default</a>
+                                        <a class="btn btn-default" href="/settings/make-default-ssh-key/{{ $sshKey->id }}">
+                                            Make Default
+                                        </a>
                                     @endif
                                 </td>
-                                <td><a href="/settings/delete-ssh-key/{{ $sshKey->id }}">Delete</a></td>
+                                <td>
+                                    <a class="btn btn-default btn-danger" href="/settings/delete-ssh-key/{{ $sshKey->id }}">
+                                        Delete
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

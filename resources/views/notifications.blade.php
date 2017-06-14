@@ -34,7 +34,11 @@
 
                                         <tr>
                                             <td>{{ $notificationEmail->email }}</td>
-                                            <td><a href="/notifications/delete/{{ $notificationEmail->id }}">Delete</a></td>
+                                            <td>
+                                                <a class="btn btn-default btn-danger" href="/notifications/delete/{{ $notificationEmail->id }}">
+                                                    Delete
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

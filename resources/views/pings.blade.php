@@ -67,7 +67,11 @@ if (isset($editPing)) {
                                                         &#x1f44d;
                                                     @endif
                                                 </td>
-                                                <td><a href="/pings/edit/{{ $ping->id }}">Edit</a></td>
+                                                <td>
+                                                    <a class="btn btn-default" href="/pings/edit/{{ $ping->id }}">
+                                                        Edit
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
