@@ -38,6 +38,15 @@ $pageTitle = "Script Set: {$scriptSet->name}";
             </div>
         </div>
 
+        <div class="u-margin-bottom-standard u-cursor-pointer js-scripts-collapse-expand">
+            <div class="js-collapse-scripts">
+                <span class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span> Collapse Scripts
+            </div>
+            <div class="js-expand-scripts" style="display: none;">
+                <span class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span> Expand Scripts
+            </div>
+        </div>
+
         <div class="js-scripts-container">
             @foreach ($scriptSet->scripts as $script)
                 <?php /** @var \App\Script $script */ ?>

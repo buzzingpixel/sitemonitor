@@ -20,15 +20,15 @@ $scriptContent = $scriptContent ?? '';
         class="js-script-delete"
     >
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-move u-cursor-move js-script-sort-handle" aria-hidden="true"></span> Script
+        <span class="glyphicon glyphicon-move u-cursor-move js-script-sort-handle" aria-hidden="true"></span> Script<span class="js-script-name-holder"></span>
     </div>
-    <div class="panel-body">
+    <div class="panel-body js-script-body">
         <div class="form-group ">
             <label for="scripts[{{ $id }}][scriptName]">Script Name</label>
             <input
                 type="text" name="scripts[{{ $id }}][scriptName]"
                 id="scripts[{{ $id }}][scriptName]"
-                class="form-control"
+                class="form-control js-script-name"
                 value="{{ $scriptName }}"
             >
         </div>

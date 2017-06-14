@@ -11,6 +11,10 @@ function runEditScriptSet(F, W) {
 
     // Create the controller
     F.controller.make('EditScriptSet', {
+        model: {
+            scriptsCollapsed: 'bool'
+        },
+
         events: {
             'click .js-add-script': function() {
                 // Save a reference to the controller
@@ -28,6 +32,16 @@ function runEditScriptSet(F, W) {
                 var $script = $el.closest('.js-script');
                 $script.find('.js-script-delete').val('true');
                 $script.hide();
+            },
+            'click .js-scripts-collapse-expand': function(e) {
+                // Save a reference to the controller
+                var self = this;
+
+                // Set model
+                self.model.set(
+                    'scriptsCollapsed',
+                    ! self.model.get('scriptsCollapsed')
+                );
             }
         },
 
@@ -45,6 +59,65 @@ function runEditScriptSet(F, W) {
                 handle: '.js-script-sort-handle',
                 animation: 150
             });
+
+            // Watch for scripts collapsed model changes
+            self.model.onChange('scriptsCollapsed', function(val) {
+                if (val) {
+                    self.collapseScripts();
+                    return;
+                }
+                self.expandScripts();
+            });
+        },
+
+        collapseScripts: function() {
+            // Save a reference to the controller
+            var self = this;
+
+            // Get the script bodies
+            var $scriptBodies = self.$el.find('.js-script-body');
+
+            // Collapse scripts
+            $scriptBodies.slideUp(100);
+
+            // Iterate through script bodies and set title
+            $scriptBodies.each(function() {
+                var $el = $(this);
+                var $script = $el.closest('.js-script');
+                $script.find('.js-script-name-holder').text(
+                    ': ' + $script.find('.js-script-name').val()
+                );
+            });
+
+            // Hide the collapse option
+            self.$el.find('.js-collapse-scripts').hide();
+
+            // Show the expand scripts option
+            self.$el.find('.js-expand-scripts').show();
+        },
+
+        expandScripts: function() {
+            // Save a reference to the controller
+            var self = this;
+
+            // Get the script bodies
+            var $scriptBodies = self.$el.find('.js-script-body');
+
+            // Expand scripts
+            $scriptBodies.slideDown(100);
+
+            // Iterate through script bodies and unset title
+            $scriptBodies.each(function() {
+                var $el = $(this);
+                var $script = $el.closest('.js-script');
+                $script.find('.js-script-name-holder').text('');
+            });
+
+            // Show the collapse option
+            self.$el.find('.js-collapse-scripts').show();
+
+            // Hide the expand scripts option
+            self.$el.find('.js-expand-scripts').hide();
         }
     });
 }
