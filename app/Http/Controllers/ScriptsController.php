@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use App\Service\Messages;
 use Illuminate\Http\RedirectResponse;
 use App\ScriptSet;
+use App\Script;
 
 /**
  * Class ScriptsController
@@ -116,6 +117,15 @@ class ScriptsController extends Controller
         // Save the script set
         $scriptSet->save();
 
+        // Get scripts
+        $scripts = request('scripts');
+        $scripts = is_array($scripts) ? $scripts : [];
+
+        // Iterate through scripts and send to method to save
+        foreach ($scripts as $script) {
+            $this->saveScript($script, $scriptSet->id);
+        }
+
         // Add a success message
         Messages::addMessage(
             'postSuccess',
@@ -127,5 +137,48 @@ class ScriptsController extends Controller
 
         // Redirect to the scripts page
         return redirect('/servers/scripts');
+    }
+
+    /** @var int $runningPosition */
+    private $runningPosition = 1;
+
+    /**
+     * Save script
+     * @param array $script
+     * @param int $setId
+     * @throws \Exception
+     */
+    private function saveScript(array $script, int $setId)
+    {
+        // Get existing script if applicable
+        $scriptModel = null;
+        if ($script['scriptId']) {
+            $scriptModel = Script::where('id', $script['scriptId'])->first();
+        }
+
+        /** @var Script $scriptModel */
+
+        // Delete script if needed
+        if ($scriptModel && $script['scriptDelete'] === 'true') {
+            $scriptModel->delete();
+            return;
+        }
+
+        // If there is no scriptModel, make one
+        $scriptModel = $scriptModel ?? new Script();
+
+        // Set properties on the model
+        $scriptModel->fill([
+            'script_set_id' => $setId,
+            'position' => $this->runningPosition,
+            'name' => $script['scriptName'] ?? '',
+            'content' => $script['scriptContent'] ?? '',
+        ]);
+
+        // Save the script model
+        $scriptModel->save();
+
+        // Increment the running position
+        $this->runningPosition++;
     }
 }

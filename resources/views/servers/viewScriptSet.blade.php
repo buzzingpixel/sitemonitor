@@ -38,7 +38,16 @@ $pageTitle = "Script Set: {$scriptSet->name}";
             </div>
         </div>
 
-        <div class="js-scripts-container"></div>
+        <div class="js-scripts-container">
+            @foreach ($scriptSet->scripts as $script)
+                <?php /** @var \App\Script $script */ ?>
+                @include('servers.partials.script', [
+                    'scriptId' => $script->id,
+                    'scriptName' => $script->name,
+                    'scriptContent' => $script->content,
+                ])
+            @endforeach
+        </div>
 
         <div class="form-group">
             <a class="btn btn-success js-add-script">Add Script</a>

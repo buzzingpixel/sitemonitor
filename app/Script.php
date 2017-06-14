@@ -26,6 +26,17 @@ class Script extends Model
     protected $table = 'scripts';
 
     /**
+     * The values that are mass assignable
+     * @var array
+     */
+    protected $fillable = [
+        'script_set_id',
+        'position',
+        'name',
+        'content',
+    ];
+
+    /**
      * ScriptSet
      */
     public function scriptSet()
