@@ -35,7 +35,7 @@ class ScriptsController extends Controller
 
     /**
      * Add set
-     * @return RedirectResponse;
+     * @return RedirectResponse
      */
     public function addSet() : RedirectResponse
     {
@@ -69,7 +69,7 @@ class ScriptsController extends Controller
             true
         );
 
-        // Redirect to the servers page
+        // Redirect to the scripts page
         return redirect('/servers/scripts');
     }
 
@@ -83,5 +83,49 @@ class ScriptsController extends Controller
         return view('servers.viewScriptSet', [
             'scriptSet' => $scriptSet
         ]);
+    }
+
+    /**
+     * Update set
+     * @param ScriptSet $scriptSet
+     * @return RedirectResponse
+     */
+    public function updateSet(ScriptSet $scriptSet) : RedirectResponse
+    {
+        // Get the set name
+        $setName = request('setName');
+
+        // Make sure there is a group name
+        if (! $setName) {
+            // Add an error message
+            Messages::addMessage(
+                'postErrors',
+                'There were errors with your submission',
+                'A Set Name is require ',
+                'danger',
+                true
+            );
+
+            // Redirect to the servers page
+            return redirect("/servers/scripts/{$scriptSet->id}");
+        }
+
+        // Set the name
+        $scriptSet->name = $setName;
+
+        // Save the script set
+        $scriptSet->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$setName} was updated successfully",
+            'success',
+            true
+        );
+
+        // Redirect to the scripts page
+        return redirect('/servers/scripts');
     }
 }
