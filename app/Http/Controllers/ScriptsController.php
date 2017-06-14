@@ -72,4 +72,16 @@ class ScriptsController extends Controller
         // Redirect to the servers page
         return redirect('/servers/scripts');
     }
+
+    /**
+     * View set
+     * @param ScriptSet $scriptSet
+     * @return View
+     */
+    public function viewSet(ScriptSet $scriptSet): View
+    {
+        return view('servers.viewScriptSet', [
+            'scriptSet' => $scriptSet
+        ]);
+    }
 }

@@ -146,6 +146,9 @@ Route::get('/servers/scripts', 'ScriptsController@index');
 // Add Script Set
 Route::post('/servers/scripts/add-script-set', 'ScriptsController@addSet');
 
+// View script set
+Route::get('/servers/scripts/{scriptSet}', 'ScriptsController@viewSet');
+
 // SERVERS
 
 // List servers
