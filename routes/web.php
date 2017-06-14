@@ -140,6 +140,11 @@ Route::post('/servers/edit-group/{serverGroup}', 'ServerGroupsController@edit');
 
 // SCRIPTS
 
+// Get script template
+Route::get('/servers/scripts/script-template', function () {
+    return view('servers.partials.script');
+});
+
 // Show scripts
 Route::get('/servers/scripts', 'ScriptsController@index');
 

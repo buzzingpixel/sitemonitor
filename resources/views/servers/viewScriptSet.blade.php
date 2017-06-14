@@ -18,6 +18,7 @@ $pageTitle = "Script Set: {$scriptSet->name}";
     <form
         method="POST"
         action="/servers/scripts/{{ $scriptSet->id }}"
+        class="js-edit-script-set"
     >
 
         {{ csrf_field() }}
@@ -37,8 +38,10 @@ $pageTitle = "Script Set: {$scriptSet->name}";
             </div>
         </div>
 
+        <div class="js-scripts-container"></div>
+
         <div class="form-group">
-            <a class="btn btn-success">Add Script</a>
+            <a class="btn btn-success js-add-script">Add Script</a>
         </div>
 
         <br>

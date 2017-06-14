@@ -160,6 +160,7 @@ $mainNav = [
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/dot/1.1.2/doT.min.js"></script>
     <script src="{{ asset('assets/js/script.min.js') }}"></script>
 </body>
 </html>

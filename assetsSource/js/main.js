@@ -1,9 +1,22 @@
-/*----------------------------------------------------------------------------*\
-    # Copyright 2017, BuzzingPixel, LLC
+// This file is run after everything else
 
-    # This program is free software: you can redistribute it and/or modify
-    # it under the terms of the Apache License 2.0.
-    # http://www.apache.org/licenses/LICENSE-2.0
+function runMain(F, W) {
+    'use strict';
 
-    # This file is run after everything else
-\*----------------------------------------------------------------------------*/
+    // Make sure Fabricator has been fully loaded
+    if (! W.fabDependenciesLoaded()) {
+        setTimeout(function() {
+            runMain(F, W);
+        }, 10);
+        return;
+    }
+
+    // Run script sets on page
+    $('.js-edit-script-set').each(function() {
+        F.controller.construct('EditScriptSet', {
+            el: this
+        });
+    });
+}
+
+runMain(window.FAB, window);
