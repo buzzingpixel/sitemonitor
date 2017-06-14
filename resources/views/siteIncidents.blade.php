@@ -13,7 +13,10 @@ $timezone = new \Camroncade\Timezone\Timezone;
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <a href="/sites">&laquo; Back to sites</a><br><br>
+            <ol class="breadcrumb u-background-white">
+                <li><a href="/sites">Sites</a></li>
+                <li class="active">Incidents for &ldquo;{{ $monitoredSite->name }}&rdquo;</li>
+            </ol>
 
             <div class="panel panel-default">
                 <div class="panel-heading">Last 50 incidents for &ldquo;{{ $monitoredSite->name }}&rdquo;</div>

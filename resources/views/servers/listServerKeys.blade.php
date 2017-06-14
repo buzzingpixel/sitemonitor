@@ -10,9 +10,10 @@
 ])
 
 @section('serverContent')
-    <a href="/servers/server-key-management">« Back to Server Key Management</a>
-    <br>
-    <br>
+    <ol class="breadcrumb u-background-white">
+        <li><a href="/servers/server-key-management">Server Key Management</a></li>
+        <li class="active">Authorized Keys on {{ $server->name }}</li>
+    </ol>
     <div class="panel panel-default">
         <div class="panel-heading">Authorized Keys on {{ $server->name }}</div>
         <div class="panel-body">

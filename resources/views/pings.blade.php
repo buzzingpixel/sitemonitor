@@ -19,7 +19,10 @@ if (isset($editPing)) {
         <div class="row">
             <div class="col-md-12">
                 @if (isset($editPing))
-                <a href="/pings">&laquo; Back to pings</a><br><br>
+                    <ol class="breadcrumb u-background-white">
+                        <li><a href="/pings">Pings</a></li>
+                        <li class="active">Editing Ping: {{ $editPing->name }}</li>
+                    </ol>
                 @endif
 
                 @if ($pings->count())

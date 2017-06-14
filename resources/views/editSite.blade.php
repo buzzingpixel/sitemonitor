@@ -14,7 +14,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <a href="/dashboard">&laquo; Back to dashboard</a><br><br>
+            <ol class="breadcrumb u-background-white">
+                <li><a href="/sites">Sites</a></li>
+                <li class="active">Add monitored sites</li>
+            </ol>
 
             <div class="panel panel-default">
                 <div class="panel-heading">Add monitored Site</div>

@@ -18,7 +18,14 @@ if (isset($editServer)) {
 @section('serverContent')
 
     @if (isset($editServer) || isset($editServerGroup))
-    <a href="/servers">&laquo; Back to servers</a><br><br>
+        <ol class="breadcrumb u-background-white">
+            <li><a href="/servers">Server Index</a></li>
+            @if (isset($editServer))
+                <li class="active">Editing Server: {{ $editServer->name }}</li>
+            @elseif (isset($editServerGroup))
+                <li class="active">Editing Server Group: {{ $editServerGroup->name }}</li>
+            @endif
+        </ol>
     @endif
 
     @if (! isset($editServerGroup) && ! isset($editServer))
