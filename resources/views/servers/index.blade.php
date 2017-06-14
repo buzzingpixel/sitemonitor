@@ -76,26 +76,26 @@ if (isset($editServer)) {
                 <div class="panel-body u-overflow-scroll">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Port</th>
-                            <th>Username</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Port</th>
+                                <th>Username</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($unGroupedServers as $server)
-                            <?php /** @var \App\Server $server */ ?>
-                            <tr>
-                                <td>{{ $server->name }}</td>
-                                <td>{{ $server->address }}</td>
-                                <td>{{ $server->port }}</td>
-                                <td>{{ $server->username }}</td>
-                                <td><a href="/servers/{{ $server->id }}">Edit</a></td>
-                            </tr>
-                        @endforeach
+                            @foreach ($unGroupedServers as $server)
+                                <?php /** @var \App\Server $server */ ?>
+                                <tr>
+                                    <td>{{ $server->name }}</td>
+                                    <td>{{ $server->address }}</td>
+                                    <td>{{ $server->port }}</td>
+                                    <td>{{ $server->username }}</td>
+                                    <td><a href="/servers/{{ $server->id }}">Edit</a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

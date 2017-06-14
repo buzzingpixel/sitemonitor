@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Illuminate\Database\Eloquent\Collection $scriptSets */
+
 $pageTitle = 'Scripts';
 
 ?>
@@ -30,5 +32,46 @@ $pageTitle = 'Scripts';
             </form>
         </div>
     </div>
+
+    @if ($scriptSets->count())
+        <div class="panel panel-default">
+            <div class="panel-heading">Script Sets</div>
+            <div class="panel-body u-overflow-scroll">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($scriptSets as $scriptSet)
+                        <?php /** @var \App\ScriptSet $scriptSet */ ?>
+                        <tr>
+                            <td>{{ $scriptSet->name }}</td>
+                            <td>
+                                <a
+                                    class="btn btn-default"
+                                    href="/servers/scripts/{{ $scriptSet->id }}"
+                                >
+                                    Edit Set
+                                </a>
+                            </td>
+                            <td>
+                                <a
+                                    class="btn btn-default"
+                                    href="/servers/scripts/run/{{ $scriptSet->id }}"
+                                >
+                                    Run Set&hellip;
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
 
 @endsection

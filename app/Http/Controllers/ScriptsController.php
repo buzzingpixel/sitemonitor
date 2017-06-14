@@ -28,7 +28,9 @@ class ScriptsController extends Controller
      */
     public function index() : View
     {
-        return view('servers.scripts');
+        return view('servers.scripts', [
+            'scriptSets' => ScriptSet::orderBy('created_at', 'desc')->get()
+        ]);
     }
 
     /**
