@@ -1,15 +1,15 @@
 #------------------------------------
-	# Project
+    # Project
 #------------------------------------
 
-# Custom project exclusions
+# Project custom ignores
 
 
 
 
 
 #------------------------------------
-	# System
+    # Tools
 #------------------------------------
 
 public/hot
@@ -17,51 +17,40 @@ public/storage
 public/cache/*
 storage/*.key
 
+configLocal.json
 localStorage/*
-!localStorage/.gitkeep
 !localStorage/dbBackups
 localStorage/dbBackups/*
-!localStorage/dbBackups/.gitkeep
-
-vagrantConfig.yaml
-
-
-
-
-
-#------------------------------------
-	# Tools
-#------------------------------------
-
-/fabCache/*
+bower_components/
+node_modules/
+out/
+.bundle
+.env
+.idea/
+.komodotools
+.project
+.settings/
+.tern-project
+.tmproj
 *.esproj
 *.komodoproject
 *.sublime-*
-*.vagrant
-/.vagrant
-.bundle
-.env
-.idea
-.komodotools
-.project
-.settings
-.tern-project
-.tmproj
-Homestead.yaml
-Homestead.json
-node_modules
-out
-vendor
-npm-debug.log
+browserstack.js
+codekit-config.json
+mixture.json
+prepros.json
 
 
 
 
 
 #------------------------------------
-	# Platforms
+    # System
 #------------------------------------
 
+.cache
+.DS_Store
+.tmp
 *.diff
 *.err
 *.log
@@ -70,18 +59,18 @@ npm-debug.log
 *.swo
 *.swp
 *.vi
-.cache
-.DS_Store
-.tmp
 error_log
 Thumbs.db
+Homestead.yaml
+vendor/*
+*.vagrant
 
 
 
 
 
 #------------------------------------
-	# Gitkeep
+    # Gitkeep
 #------------------------------------
 
 !.gitkeep
