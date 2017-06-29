@@ -16,7 +16,8 @@
             {{ csrf_field() }}
             <div class="panel panel-default">
                 <div class="panel-heading">SSH Key Server Association</div>
-                <div class="panel-body">
+                <div class="panel-body js-filter-table">
+                    <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                     <table class="table">
                         <thead>
                         <tr>
@@ -27,7 +28,7 @@
                         <tbody>
                         @foreach ($servers as $server)
                             <?php /** @var \App\Server $server */ ?>
-                            <tr>
+                            <tr class="js-filter-table__row">
                                 <td>{{ $server->name }}</td>
                                 <td>
                                     <select name="keys[{{ $server->id  }}]" class="form-control">

@@ -28,20 +28,62 @@ if (isset($editServer)) {
         </ol>
     @endif
 
-    @if (! isset($editServerGroup) && ! isset($editServer))
-        @if ($serverGroups->count())
-            @foreach ($serverGroups as $serverGroup)
-                @if ($serverGroup->servers->count())
-                    <?php /** @var \App\ServerGroup $serverGroup */ ?>
-                    <div class="panel panel-default">
-                        <div
-                            class="panel-heading"
-                        >
-                            {{ $serverGroup->name }} (<a href="/servers/edit-group/{{ $serverGroup->id }}">edit</a>)
+    <div class="js-filter-table">
+
+        <input type="text" class="form-control js-filter-table__input" placeholder="Filter"><br>
+
+        @if (! isset($editServerGroup) && ! isset($editServer))
+            @if ($serverGroups->count())
+                @foreach ($serverGroups as $serverGroup)
+                    @if ($serverGroup->servers->count())
+                        <?php /** @var \App\ServerGroup $serverGroup */ ?>
+                        <div class="panel panel-default js-filter-table__parent-hide-on-no-results">
+                            <div
+                                class="panel-heading"
+                            >
+                                {{ $serverGroup->name }} (<a href="/servers/edit-group/{{ $serverGroup->id }}">edit</a>)
+                            </div>
+                            <div class="panel-body u-overflow-scroll">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Port</th>
+                                        <th>Username</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($serverGroup->servers as $server)
+                                        <?php /** @var \App\Server $server */ ?>
+                                        <tr class="js-filter-table__row">
+                                            <td>{{ $server->name }}</td>
+                                            <td>{{ $server->address }}</td>
+                                            <td>{{ $server->port }}</td>
+                                            <td>{{ $server->username }}</td>
+                                            <td>
+                                                <a class="btn btn-default" href="/servers/{{ $server->id }}">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="panel-body u-overflow-scroll">
-                            <table class="table">
-                                <thead>
+                    @endif
+                @endforeach
+            @endif
+
+            @if ($unGroupedServers->count())
+                <div class="panel panel-default js-filter-table__parent-hide-on-no-results">
+                    <div class="panel-heading">Un-grouped</div>
+                    <div class="panel-body u-overflow-scroll">
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Address</th>
@@ -50,11 +92,11 @@ if (isset($editServer)) {
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($serverGroup->servers as $server)
+                            </thead>
+                            <tbody>
+                                @foreach ($unGroupedServers as $server)
                                     <?php /** @var \App\Server $server */ ?>
-                                    <tr>
+                                    <tr class="js-filter-table__row">
                                         <td>{{ $server->name }}</td>
                                         <td>{{ $server->address }}</td>
                                         <td>{{ $server->port }}</td>
@@ -66,50 +108,14 @@ if (isset($editServer)) {
                                         </td>
                                     </tr>
                                 @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                @endif
-            @endforeach
+                </div>
+            @endif
         @endif
 
-        @if ($unGroupedServers->count())
-            <div class="panel panel-default">
-                <div class="panel-heading">Un-grouped</div>
-                <div class="panel-body u-overflow-scroll">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Port</th>
-                                <th>Username</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($unGroupedServers as $server)
-                                <?php /** @var \App\Server $server */ ?>
-                                <tr>
-                                    <td>{{ $server->name }}</td>
-                                    <td>{{ $server->address }}</td>
-                                    <td>{{ $server->port }}</td>
-                                    <td>{{ $server->username }}</td>
-                                    <td>
-                                        <a class="btn btn-default" href="/servers/{{ $server->id }}">
-                                            Edit
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @endif
-    @endif
+    </div>
 
     @if (! isset($editServerGroup))
         <div class="panel panel-default">

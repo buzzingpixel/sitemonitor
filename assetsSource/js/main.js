@@ -24,6 +24,13 @@ function runMain(F, W) {
             el: this
         });
     });
+
+    // Run table filters
+    $('.js-filter-table').each(function() {
+        F.controller.construct('FilterTable', {
+            el: this
+        });
+    });
 }
 
 runMain(window.FAB, window);

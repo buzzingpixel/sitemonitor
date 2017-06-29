@@ -29,7 +29,8 @@ if (isset($editPing)) {
                     <div class="panel panel-default">
                         <div class="panel-heading">Pings</div>
 
-                            <div class="panel-body u-overflow-scroll">
+                            <div class="panel-body u-overflow-scroll js-filter-table">
+                                <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -46,7 +47,7 @@ if (isset($editPing)) {
                                         @foreach ($pings as $ping)
                                             <?php /** @var \App\Ping $ping */ ?>
 
-                                            <tr class="@if ($ping->getHealthStatus() === 'pastWarning') danger @elseif ($ping->getHealthStatus() === 'pastExpect') warning @else success @endif">
+                                            <tr class="@if ($ping->getHealthStatus() === 'pastWarning') danger @elseif ($ping->getHealthStatus() === 'pastExpect') warning @else success @endif js-filter-table__row">
                                                 <td>{{ $ping->name }}</td>
                                                 <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
                                                 <td>{{ $ping->getMinutes('warn_after') }} minutes</td>

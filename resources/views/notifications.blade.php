@@ -20,7 +20,8 @@
 
                     @if ($notificationEmails->count())
 
-                        <div class="panel-body">
+                        <div class="panel-body u-overflow-scroll js-filter-table">
+                            <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -32,7 +33,7 @@
                                     @foreach ($notificationEmails as $notificationEmail)
                                         <?php /** @var \App\NotificationEmail $notificationEmail */ ?>
 
-                                        <tr>
+                                        <tr class="js-filter-table__row">
                                             <td>{{ $notificationEmail->email }}</td>
                                             <td>
                                                 <a class="btn btn-default btn-danger" href="/notifications/delete/{{ $notificationEmail->id }}">

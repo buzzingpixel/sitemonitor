@@ -19,7 +19,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">User Privileges</div>
 
-                            <div class="panel-body u-overflow-scroll">
+                            <div class="panel-body u-overflow-scroll js-filter-table">
+                                <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -36,7 +37,7 @@
                                     @foreach ($users as $user)
                                         <?php /** @var \App\User $user */ ?>
 
-                                        <tr>
+                                        <tr class="js-filter-table__row">
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>

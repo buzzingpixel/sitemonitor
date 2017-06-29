@@ -17,11 +17,14 @@ $timezone = new \Camroncade\Timezone\Timezone;
             <div class="col-md-12">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Monitored Sites</div>
+                    <div class="panel-heading">
+                        Monitored Sites
+                    </div>
 
                     @if ($monitoredSites->count())
 
-                        <div class="panel-body u-overflow-scroll">
+                        <div class="panel-body u-overflow-scroll js-filter-table">
+                            <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -37,7 +40,7 @@ $timezone = new \Camroncade\Timezone\Timezone;
                                     @foreach ($monitoredSites as $monitoredSite)
                                         <?php /** @var \App\MonitoredSite $monitoredSite */ ?>
 
-                                        <tr class="@if ($monitoredSite->has_error) danger @else success @endif">
+                                        <tr class="@if ($monitoredSite->has_error) danger @else success @endif js-filter-table__row">
                                             <td>{{ $monitoredSite->name }}</td>
                                             <td>
                                                 @foreach ($monitoredSite->getUrlsAsArray() as $url)

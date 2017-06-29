@@ -36,7 +36,8 @@ $pageTitle = 'Scripts';
     @if ($scriptSets->count())
         <div class="panel panel-default">
             <div class="panel-heading">Script Sets</div>
-            <div class="panel-body u-overflow-scroll">
+            <div class="panel-body u-overflow-scroll js-filter-table">
+                <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -48,7 +49,7 @@ $pageTitle = 'Scripts';
                     <tbody>
                     @foreach ($scriptSets as $scriptSet)
                         <?php /** @var \App\ScriptSet $scriptSet */ ?>
-                        <tr>
+                        <tr class="js-filter-table__row">
                             <td>{{ $scriptSet->name }}</td>
                             <td>
                                 <a class="btn btn-default" href="/servers/scripts/{{ $scriptSet->id }}">

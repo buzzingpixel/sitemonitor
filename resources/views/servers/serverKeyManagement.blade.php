@@ -20,32 +20,63 @@ $serverSelectPadding = number_format(($serverSelectPaddingCount * 18.5));
 ])
 
 @section('serverContent')
+
     @if ($serverGroups->count() || $unGroupedServers->count())
 
-        {{-- List servers to list authorized key on a server --}}
-        @foreach ($serverGroups as $serverGroup)
-            @if ($serverGroup->servers->count())
-                <?php /** @var \App\ServerGroup $serverGroup */ ?>
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ $serverGroup->name }}</div>
+        <div class="js-filter-table">
+
+            <input type="text" class="form-control js-filter-table__input" placeholder="Filter"><br>
+
+            {{-- List servers to list authorized key on a server --}}
+            @foreach ($serverGroups as $serverGroup)
+                @if ($serverGroup->servers->count())
+                    <?php /** @var \App\ServerGroup $serverGroup */ ?>
+                    <div class="panel panel-default js-filter-table__parent-hide-on-no-results">
+                        <div class="panel-heading">{{ $serverGroup->name }}</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($serverGroup->servers as $server)
+                                        <?php /** @var \App\Server $server */ ?>
+                                        <tr class="js-filter-table__row">
+                                            <td>{{ $server->name }}</td>
+                                            <td>
+                                                <a class="btn btn-default" href="/servers/server-key-management/list-authorized-keys/{{ $server->id }}">
+                                                    List Authorized Keys
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+
+            @if ($unGroupedServers->count())
+                <div class="panel panel-default js-filter-table__parent-hide-on-no-results">
+                    <div class="panel-heading">Un-grouped</div>
                     <div class="panel-body">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($serverGroup->servers as $server)
+                                @foreach ($unGroupedServers as $server)
                                     <?php /** @var \App\Server $server */ ?>
-                                    <tr>
+                                    <tr class="js-filter-table__row">
                                         <td>{{ $server->name }}</td>
-                                        <td>
-                                            <a class="btn btn-default" href="/servers/server-key-management/list-authorized-keys/{{ $server->id }}">
-                                                List Authorized Keys
-                                            </a>
-                                        </td>
+                                        <td><a href="/servers/server-key-management/list-authorized-keys/{{ $server->id }}">List Authorized Keys</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -53,32 +84,8 @@ $serverSelectPadding = number_format(($serverSelectPaddingCount * 18.5));
                     </div>
                 </div>
             @endif
-        @endforeach
 
-        @if ($unGroupedServers->count())
-            <div class="panel panel-default">
-                <div class="panel-heading">Un-grouped</div>
-                <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($unGroupedServers as $server)
-                                <?php /** @var \App\Server $server */ ?>
-                                <tr>
-                                    <td>{{ $server->name }}</td>
-                                    <td><a href="/servers/server-key-management/list-authorized-keys/{{ $server->id }}">List Authorized Keys</a></td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @endif
+        </div>
 
         {{-- Add an SSH key to any or all servers --}}
         <div class="panel panel-default">
@@ -116,4 +123,5 @@ $serverSelectPadding = number_format(($serverSelectPaddingCount * 18.5));
             </div>
         </div>
     @endif
+
 @endsection

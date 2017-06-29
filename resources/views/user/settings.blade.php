@@ -39,7 +39,8 @@ $timezone = new \Camroncade\Timezone\Timezone;
         <div class="panel panel-default">
             <div class="panel-heading">SSH Keys</div>
 
-            <div class="panel-body">
+            <div class="panel-body u-overflow-scroll js-filter-table">
+                <input type="text" class="form-control js-filter-table__input" placeholder="Filter">
                 <table class="table">
                     <thead>
                         <tr>
@@ -52,7 +53,7 @@ $timezone = new \Camroncade\Timezone\Timezone;
                         @foreach ($user->sshKeys as $sshKey)
                             <?php /** @var \App\SshKey $sshKey */ ?>
 
-                            <tr class="@if ($sshKey->is_default) info @endif">
+                            <tr class="@if ($sshKey->is_default) info @endif js-filter-table__row">
                                 <td>{{ $sshKey->name }}</td>
                                 <td>
                                     @if ($sshKey->is_default)
