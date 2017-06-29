@@ -51,11 +51,21 @@ if (isset($editPing)) {
                                                 <td>{{ $ping->getMinutes('expect_every') }} minutes</td>
                                                 <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
                                                 <td>
-                                                    <a
-                                                        href="{{ $ping->getPingUrl() }}"
-                                                    >
-                                                        Ping URL
-                                                    </a>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ $ping->guid }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            Show Ping URL
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ $ping->guid }}">
+                                                            <li style="padding: 0 4px; min-width: 320px;">
+                                                                <input
+                                                                    type="text"
+                                                                    value="{{ $ping->getPingUrl() }}"
+                                                                    class="form-control"
+                                                                >
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </td>
                                                 <td>{{ $timezone->convertFromUTC($ping->asCarbon('last_ping'), Auth::user()->timezone, 'Y-m-d g:i:s a') }}</td>
                                                 <td>
@@ -76,6 +86,7 @@ if (isset($editPing)) {
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <br>
                             </div>
 
                     </div>
