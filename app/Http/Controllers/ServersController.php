@@ -80,6 +80,9 @@ class ServersController extends Controller
             return $this->index();
         }
 
+        // Set the server group
+        $this->postValues['server_group_id'] = request('server_group_id');
+
         // Create and save a server model
         (new Server($this->postValues))->save();
 
