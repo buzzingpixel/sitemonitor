@@ -52,7 +52,7 @@ if (isset($editPing)) {
                                                 <td>{{ $ping->getMinutes('warn_after') }} minutes</td>
                                                 <td>
                                                     <a
-                                                        href="{{ url("/pings/checkin/{$ping->guid}") }}"
+                                                        href="{{ $ping->getPingUrl() }}"
                                                     >
                                                         Ping URL
                                                     </a>

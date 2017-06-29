@@ -108,7 +108,7 @@ class PingsController extends Controller
         Messages::addMessage(
             'postSuccess',
             'Success!',
-            "{$ping->name} was added successfully",
+            "{$ping->name} was added successfully. The ping URL is {$ping->getPingUrl()}",
             'success',
             true
         );

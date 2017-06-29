@@ -32,7 +32,7 @@ class Ping extends Model
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = [])
+    public function save(array $options = []) : bool
     {
         // If this is a new record, we have some work to do
         if (! $this->exists) {
@@ -47,7 +47,7 @@ class Ping extends Model
      * Get health status
      * @return string
      */
-    public function getHealthStatus()
+    public function getHealthStatus() : string
     {
         $time = time();
         $expectTime = $this->last_ping + $this->expect_every;
@@ -87,7 +87,7 @@ class Ping extends Model
      * @param string $param
      * @return Carbon
      */
-    public function asCarbon($param)
+    public function asCarbon($param) : Carbon
     {
         return Carbon::createFromTimestamp($this->{$param});
     }
@@ -115,7 +115,7 @@ class Ping extends Model
      *     - http://www.php.net/manual/en/function.com-create-guid.php
      *     - http://guid.us/GUID/PHP
      */
-    public function generateGuid($prefix = false, $braces = false)
+    public function generateGuid($prefix = false, $braces = false) : string
     {
         mt_srand((double) microtime() * 10000);
         $charid = strtoupper(md5(uniqid($prefix === false ? rand() : $prefix, true)));
@@ -128,5 +128,14 @@ class Ping extends Model
 
         // Add brackets or not? "{" ... "}"
         return $braces ? chr(123) . $uuid . chr(125) : $uuid;
+    }
+
+    /**
+     * Get ping URL
+     * @return string
+     */
+    public function getPingUrl() : string
+    {
+        return url("/pings/checkin/{$this->guid}");
     }
 }
