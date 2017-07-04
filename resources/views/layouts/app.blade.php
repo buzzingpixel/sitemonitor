@@ -13,17 +13,21 @@ $mainNav = [
         'segment' => 'pings'
     ],
     [
-        'title' => 'Notifications',
-        'segment' => 'notifications'
-    ],
-    [
         'title' => 'Servers',
         'segment' => 'servers'
     ],
     [
+        'title' => 'Reminders',
+        'segment' => 'reminders'
+    ],
+    [
         'title' => 'Admins',
         'segment' => 'admins'
-    ]
+    ],
+    [
+        'title' => 'Notifications',
+        'segment' => 'notifications'
+    ],
 ];
 
 ?>
