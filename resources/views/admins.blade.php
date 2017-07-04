@@ -31,6 +31,7 @@
                                         <th>Access Notifications</th>
                                         <th>Access Admins</th>
                                         <th>Access Servers</th>
+                                        <th>Access Reminders</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -91,6 +92,17 @@
                                                     name="users[{{ $user->id }}][access_servers]"
                                                     value="1"
                                                     @if ($user->access_servers)
+                                                    checked
+                                                    @endif
+                                                >
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="users[{{ $user->id }}][access_reminders]" value="0">
+                                                <input
+                                                    type="checkbox"
+                                                    name="users[{{ $user->id }}][access_reminders]"
+                                                    value="1"
+                                                    @if ($user->access_reminders)
                                                     checked
                                                     @endif
                                                 >

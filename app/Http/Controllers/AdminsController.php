@@ -58,6 +58,7 @@ class AdminsController extends Controller
             $user->access_notifications = $userInput['access_notifications'];
             $user->access_admins = $userInput['access_admins'];
             $user->access_servers = $userInput['access_servers'];
+            $user->access_reminders = $userInput['access_reminders'];
             $user->save();
         }
 

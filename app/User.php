@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property bool $access_notifications Whether user can access notifications admin
  * @property bool $access_admins Whether user can access admins admin
  * @property bool $access_servers Whether user can access servers
+ * @property bool $access_reminders Whether user can access reminders
  * @property Collection $sshKeys
  * @property Collection $sshServerUserKeys
  * @property string $timezone
