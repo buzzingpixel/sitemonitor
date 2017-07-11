@@ -1,5 +1,8 @@
 <?php
 
+/** @var array $postErrors */
+/** @var array $postValues */
+
 $pageTitle = 'Reminders'
 
 ?>
