@@ -193,4 +193,28 @@ class RemindersController extends Controller
         // Redirect to the reminders page
         return redirect('/reminders');
     }
+
+    /**
+     * Delete reminder
+     * @param Reminder $reminder
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function delete(Reminder $reminder) : RedirectResponse
+    {
+        // Delete the reminder
+        $reminder->delete();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$reminder->name} was deleted successfully",
+            'success',
+            true
+        );
+
+        // Redirect to the reminders page
+        return redirect('/reminders');
+    }
 }
