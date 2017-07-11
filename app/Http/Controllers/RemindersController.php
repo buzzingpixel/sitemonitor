@@ -166,6 +166,9 @@ class RemindersController extends Controller
             $timeZone
         );
 
+        // Convert to UTC
+        $startRemindingOn->setTimezone(new \DateTimeZone('UTC'));
+
         // Set start_reminding_on
         $reminder->start_reminding_on = $startRemindingOn;
 
