@@ -7,6 +7,11 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Reminder;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View ;
+use \Illuminate\Http\Response;
+use \Illuminate\Routing\Redirector;
+use \Illuminate\Http\RedirectResponse;
 
 /**
  * Class RemindersController
@@ -46,7 +51,7 @@ class RemindersController extends Controller
     /**
      * Create reminder
      * @param Guard $auth
-     * @return \Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return Response|Redirector|RedirectResponse
      * @throws \InvalidArgumentException
      */
     public function create(Guard $auth)
@@ -142,5 +147,27 @@ class RemindersController extends Controller
 
         // Redirect to the reminders page
         return redirect('/reminders');
+    }
+
+    /**
+     * View reminder
+     * @param Reminder $reminder
+     * @return View
+     */
+    public function view(Reminder $reminder) : View
+    {
+        // Set values
+        $this->postValues['name'] = $this->postValues['name'] ?? $reminder->name;
+        $this->postValues['body'] = $this->postValues['body'] ?? $reminder->body;
+        $this->postValues['start_reminding_on'] =
+            $this->postValues['start_reminding_on'] ??
+            $reminder->start_reminding_on->format('Y-m-d');
+
+        return view('reminders.index', [
+            'reminders' => new Collection(),
+            'editReminder' => $reminder,
+            'postErrors' => $this->postErrors,
+            'postValues' => $this->postValues,
+        ]);
     }
 }
