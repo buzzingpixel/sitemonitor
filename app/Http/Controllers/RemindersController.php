@@ -217,4 +217,31 @@ class RemindersController extends Controller
         // Redirect to the reminders page
         return redirect('/reminders');
     }
+
+    /**
+     * Mark reminder complete
+     * @param Reminder $reminder
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function markComplete(Reminder $reminder) : RedirectResponse
+    {
+        // Mark the reminder complete
+        $reminder->is_complete = true;
+
+        // Save the reminder
+        $reminder->save();
+
+        // Add a success message
+        Messages::addMessage(
+            'postSuccess',
+            'Success!',
+            "{$reminder->name} was successfully completed.",
+            'success',
+            true
+        );
+
+        // Redirect to the reminders page
+        return redirect('/reminders');
+    }
 }
