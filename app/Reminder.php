@@ -24,4 +24,32 @@ class Reminder extends Model
      * @var string
      */
     protected $table = 'reminders';
+
+    /**
+     * Get start_reminding_on attribute
+     * @param $val
+     * @return Carbon|null
+     */
+    public function getStartRemindingOnAttribute($val)
+    {
+        if (! $val) {
+            return null;
+        }
+
+        return new Carbon($val);
+    }
+
+    /**
+     * Get last_reminder_sent attribute
+     * @param $val
+     * @return Carbon|null
+     */
+    public function getLastReminderSentAttribute($val)
+    {
+        if (! $val) {
+            return null;
+        }
+
+        return new Carbon($val);
+    }
 }
