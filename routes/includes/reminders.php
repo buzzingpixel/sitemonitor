@@ -12,3 +12,6 @@ Route::post('/reminders', 'RemindersController@create');
 
 // Edit reminder
 Route::get('/reminders/edit/{reminder}', 'RemindersController@view');
+
+// Submit edit reminder
+Route::post('/reminders/edit/{reminder}', 'RemindersController@edit');

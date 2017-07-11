@@ -8,9 +8,7 @@ use App\Reminder;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\View\View ;
-use \Illuminate\Http\Response;
-use \Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 use \Illuminate\Http\RedirectResponse;
 
 /**
@@ -36,8 +34,9 @@ class RemindersController extends Controller
 
     /**
      * Index
+     * @return View
      */
-    public function index()
+    public function index() : View
     {
         return view('reminders.index', [
             'reminders' => Reminder::orderBy('start_reminding_on')
@@ -51,10 +50,49 @@ class RemindersController extends Controller
     /**
      * Create reminder
      * @param Guard $auth
-     * @return Response|Redirector|RedirectResponse
+     * @return View|RedirectResponse
      * @throws \InvalidArgumentException
      */
     public function create(Guard $auth)
+    {
+        // Create new reminder model
+        $reminder = new Reminder();
+
+        // Send to the edit method for creation
+        return $this->edit($reminder, $auth);
+    }
+
+    /**
+     * View reminder
+     * @param Reminder $reminder
+     * @return View
+     */
+    public function view(Reminder $reminder) : View
+    {
+        // Set values
+        $this->postValues['name'] = $this->postValues['name'] ?? $reminder->name;
+        $this->postValues['body'] = $this->postValues['body'] ?? $reminder->body;
+        $this->postValues['start_reminding_on'] =
+            $this->postValues['start_reminding_on'] ??
+            $reminder->start_reminding_on->format('Y-m-d');
+
+        // Return the view
+        return view('reminders.index', [
+            'reminders' => new Collection(),
+            'editReminder' => $reminder,
+            'postErrors' => $this->postErrors,
+            'postValues' => $this->postValues,
+        ]);
+    }
+
+    /**
+     * Edit a reminder
+     * @param Reminder $reminder
+     * @param Guard $auth
+     * @return View|RedirectResponse
+     * @throws \InvalidArgumentException
+     */
+    public function edit(Reminder $reminder, Guard $auth)
     {
         // Set post values
         $name = $this->postValues['name'] = request('name');
@@ -75,9 +113,7 @@ class RemindersController extends Controller
 
         // Check reminders field format
         if (! isset($this->postErrors['start_reminding_on'])) {
-            // Turn the date into an array
             $dateCheck = explode('-', $startRemindingOn);
-
             if (count($dateCheck) !== 3 ||
                 ! is_numeric($dateCheck[0]) ||
                 ! is_numeric($dateCheck[1]) ||
@@ -101,11 +137,11 @@ class RemindersController extends Controller
             );
 
             // Return the view
+            if (\Request::segment(3)) {
+                return $this->view($reminder);
+            }
             return $this->index();
         }
-
-        // Create new reminder model
-        $reminder = new Reminder();
 
         // Set the name
         $reminder->name = $name;
@@ -136,38 +172,22 @@ class RemindersController extends Controller
         // Save the reminder
         $reminder->save();
 
+        // Set the message
+        $message = "{$name} was added successfully.";
+        if (\Request::segment(3)) {
+            $message = "{$name} was edited successfully.";
+        }
+
         // Add a success message
         Messages::addMessage(
             'postSuccess',
             'Success!',
-            "{$name} was added successfully.",
+            $message,
             'success',
             true
         );
 
         // Redirect to the reminders page
         return redirect('/reminders');
-    }
-
-    /**
-     * View reminder
-     * @param Reminder $reminder
-     * @return View
-     */
-    public function view(Reminder $reminder) : View
-    {
-        // Set values
-        $this->postValues['name'] = $this->postValues['name'] ?? $reminder->name;
-        $this->postValues['body'] = $this->postValues['body'] ?? $reminder->body;
-        $this->postValues['start_reminding_on'] =
-            $this->postValues['start_reminding_on'] ??
-            $reminder->start_reminding_on->format('Y-m-d');
-
-        return view('reminders.index', [
-            'reminders' => new Collection(),
-            'editReminder' => $reminder,
-            'postErrors' => $this->postErrors,
-            'postValues' => $this->postValues,
-        ]);
     }
 }
