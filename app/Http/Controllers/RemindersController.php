@@ -35,6 +35,9 @@ class RemindersController extends Controller
     public function index()
     {
         return view('reminders.index', [
+            'reminders' => Reminder::orderBy('start_reminding_on')
+                ->where('is_complete', '!=', '1')
+                ->get(),
             'postErrors' => $this->postErrors,
             'postValues' => $this->postValues,
         ]);
