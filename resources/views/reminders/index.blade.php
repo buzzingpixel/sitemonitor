@@ -4,6 +4,8 @@
 /** @var array $postErrors */
 /** @var array $postValues */
 
+$timezone = new \Camroncade\Timezone\Timezone;
+
 $pageTitle = 'Reminders';
 if (isset($editReminder)) {
     $pageTitle = "Editing {$editReminder->name}";
@@ -35,6 +37,7 @@ if (isset($editReminder)) {
                             <tr>
                                 <th>Name</th>
                                 <th>Start Reminding On</th>
+                                <th>Last Reminder Sent On</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -45,6 +48,11 @@ if (isset($editReminder)) {
                                 <tr class=" @if ($reminder->start_reminding_on->getTimestamp() < time()) warning @endif js-filter-table__row">
                                     <td>{{ $reminder->name }}</td>
                                     <td>{{ $reminder->start_reminding_on->format('Y-m-d') }}</td>
+                                    <td>
+                                        @if ($reminder->last_reminder_sent)
+                                            {{ $timezone->convertFromUTC($reminder->last_reminder_sent, Auth::user()->timezone, 'Y-m-d g:i:s a') }}
+                                        @endif
+                                    </td>
                                     <td><a class="btn btn-default" href="/reminders/edit/{{ $reminder->id }}">Edit</a></td>
                                     <td><a class="btn btn-default" href="/reminders/mark-complete/{{ $reminder->id }}">Mark Complete</a></td>
                                 </tr>
