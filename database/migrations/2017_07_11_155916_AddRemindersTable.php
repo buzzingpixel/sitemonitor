@@ -18,10 +18,10 @@ class AddRemindersTable extends Migration
         Schema::create('reminders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('body');
-            $table->boolean('is_complete');
+            $table->text('body')->nullable();
+            $table->boolean('is_complete')->nullable();
             $table->timestamp('start_reminding_on');
-            $table->timestamp('last_reminder_sent');
+            $table->timestamp('last_reminder_sent')->nullable();
             $table->timestamps();
         });
     }
