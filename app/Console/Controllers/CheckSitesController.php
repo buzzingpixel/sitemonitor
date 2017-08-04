@@ -72,8 +72,20 @@ class CheckSitesController
 
         $monitoredSite->last_checked = new Carbon();
 
-        // If the site has an error, we need to add a down event if it does not already exist
+        // Check if the site has an error
         if ($hasErrors) {
+            // Check if the site needs to go into pending error mode
+            if (! $monitoredSite->pending_error) {
+                $monitoredSite->pending_error = true;
+                $monitoredSite->save();
+                $this->consoleOutput->writeln(
+                    "<comment>{$monitoredSite->name} has a pending error...</comment>"
+                );
+                return;
+            }
+
+            // We know now the site is down
+
             if (! $latestIncident || $latestIncident->event_type !== 'down') {
                 $latestIncident = new SiteIncident();
                 $latestIncident->monitored_site_id = $monitoredSite->id;
@@ -85,12 +97,16 @@ class CheckSitesController
             }
 
             $monitoredSite->save();
-            $this->consoleOutput->writeln("<error>{$monitoredSite->name} is down!</error>");
+            $this->consoleOutput->writeln(
+                "<error>{$monitoredSite->name} is down!</error>"
+            );
 
             return;
         }
 
-        $this->consoleOutput->writeln("<info>{$monitoredSite->name} is up</info>");
+        $this->consoleOutput->writeln(
+            "<info>{$monitoredSite->name} is up</info>"
+        );
 
         if ($latestIncident && $latestIncident->event_type === 'down') {
             $latestIncident = new SiteIncident();
@@ -98,12 +114,18 @@ class CheckSitesController
             $latestIncident->event_type = 'up';
             $latestIncident->save();
 
+            $monitoredSite->pending_error = false;
             $monitoredSite->has_error = false;
             $monitoredSite->save();
 
             $this->sendNotification($monitoredSite);
 
             return;
+        }
+
+        if ($monitoredSite->pending_error) {
+            $monitoredSite->pending_error = false;
+            $monitoredSite->save();
         }
 
         $monitoredSite->save();
