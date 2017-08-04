@@ -40,14 +40,14 @@ $timezone = new \Camroncade\Timezone\Timezone;
                                     @foreach ($monitoredSites as $monitoredSite)
                                         <?php /** @var \App\MonitoredSite $monitoredSite */ ?>
 
-                                        <tr class="@if ($monitoredSite->has_error) danger @else success @endif js-filter-table__row">
+                                        <tr class="@if ($monitoredSite->has_error) danger @elseif ($monitoredSite->pending_error) warning @else success @endif js-filter-table__row">
                                             <td>{{ $monitoredSite->name }}</td>
                                             <td>
                                                 @foreach ($monitoredSite->getUrlsAsArray() as $url)
                                                     <a href="{{ $url }}" target="_blank">{{ $url }}</a><br>
                                                 @endforeach
                                             </td>
-                                            <td>@if ($monitoredSite->has_error) Down @else &#x1f44d; @endif</td>
+                                            <td>@if ($monitoredSite->has_error) Down @elseif ($monitoredSite->pending_error) Pending @else &#x1f44d; @endif</td>
                                             <td>{{ $timezone->convertFromUTC($monitoredSite->last_checked, Auth::user()->timezone, 'Y-m-d g:i:s a') }}</td>
                                             <td>
                                                 <a class="btn btn-default" href="/sites/incidents/{{ $monitoredSite->id }}">
