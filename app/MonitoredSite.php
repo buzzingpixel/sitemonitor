@@ -13,7 +13,8 @@ use App\SiteIncident;
  * @property int $id Primary key
  * @property string $name Site name
  * @property string $urls The urls to check for this site
- * @property bool $has_error Whether the site has an error as of last check
+ * @property bool $pending_error Whether site has pending error
+ * @property bool $has_error Whether site has error
  * @property Collection $incidents
  * @property Carbon $last_checked When the site was last checked for up or down
  * @property Carbon $created_at When the record was created
