@@ -2,6 +2,7 @@
 
 use App\Console\Controllers\CheckSitesController;
 use App\Console\Controllers\CheckPingsController;
+use App\Console\Controllers\CheckRemindersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,14 @@ use App\Console\Controllers\CheckPingsController;
 Artisan::command('check-sites', function () {
     $checkSitesController = new CheckSitesController();
     $checkSitesController->runCheck();
-})->describe('Check status of monitored sties');
+})->describe('Check status of monitored sites');
 
 Artisan::command('check-pings', function () {
     $checkSitesController = new CheckPingsController();
     $checkSitesController->runCheck();
-})->describe('Check status of monitored sties');
+})->describe('Send notifications for missing pings');
+
+Artisan::command('check-reminders', function () {
+    $checkSitesController = new CheckRemindersController();
+    $checkSitesController->runCheck();
+})->describe('Send notifications for reminders');

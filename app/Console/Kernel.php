@@ -33,6 +33,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('check-pings')
             ->everyMinute()
             ->withoutOverlapping();
+
+        $schedule->command('check-reminders')
+            ->daily()
+            ->withoutOverlapping();
     }
 
     /**
