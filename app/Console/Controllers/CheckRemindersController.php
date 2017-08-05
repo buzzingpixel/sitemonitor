@@ -88,7 +88,15 @@ class CheckRemindersController
 
         // Set body
         $url = \URL::to('/reminders');
-        $body = "{$subject}.\n\n{$url}";
+        $body = "{$subject}.\n\n";
+
+        // Add reminder body if applicable
+        if ($reminder->body) {
+            $body .= "{$reminder->body}\n\n";
+        }
+
+        // Add the URL to the body
+        $body .= $url;
 
         // Output info on the console
         $this->consoleOutput->writeln("<info>{$subject}. Sending email...</info>");
