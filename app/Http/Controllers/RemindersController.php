@@ -152,6 +152,9 @@ class RemindersController extends Controller
         // Set is_complete
         $reminder->is_complete = false;
 
+        // Null reminder last sent
+        $reminder->last_reminder_sent = null;
+
         // Get the current user
         /** @var User $currentUser */
         $currentUser = $auth->user();
