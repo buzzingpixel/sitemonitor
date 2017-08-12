@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping();
 
         $schedule->command('check-reminders')
-            ->daily()
+            ->dailyAt('7:00')
             ->withoutOverlapping();
     }
 
