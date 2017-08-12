@@ -89,7 +89,7 @@ class Ping extends Model
      */
     public function asCarbon($param) : Carbon
     {
-        return Carbon::createFromTimestamp($this->{$param});
+        return Carbon::createFromTimestamp($this->{$param}, new \DateTimeZone('UTC'));
     }
 
     /**
