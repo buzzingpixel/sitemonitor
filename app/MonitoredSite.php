@@ -58,6 +58,6 @@ class MonitoredSite extends Model
             return null;
         }
 
-        return new Carbon($val);
+        return new Carbon($val, new \DateTimeZone('UTC'));
     }
 }

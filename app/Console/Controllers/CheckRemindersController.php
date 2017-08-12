@@ -116,7 +116,7 @@ class CheckRemindersController
         );
 
         // Update the reminder last sent parameter
-        $reminder->last_reminder_sent = new Carbon();
+        $reminder->last_reminder_sent = new Carbon(null, new \DateTimeZone('UTC'));
         $reminder->save();
     }
 }

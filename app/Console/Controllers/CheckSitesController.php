@@ -70,7 +70,7 @@ class CheckSitesController
             ->orderBy('created_at', 'desc')
             ->first();
 
-        $monitoredSite->last_checked = new Carbon();
+        $monitoredSite->last_checked = new Carbon(null, new \DateTimeZone('UTC'));
 
         // Check if the site has an error
         if ($hasErrors) {
