@@ -37,7 +37,7 @@ class CheckSitesController
     public function runCheck()
     {
         // Get all monitored sites
-        $monitoredSites = MonitoredSite::orderBy('name', 'asc')->get();
+        $monitoredSites = (new MonitoredSite)->orderBy('name', 'asc')->get();
 
         // Send each site record to the checkSite method
         $monitoredSites->each([
@@ -53,20 +53,26 @@ class CheckSitesController
     public function checkSite(MonitoredSite $monitoredSite)
     {
         $hasErrors = false;
+        $statusArray = [
+            'up' => true,
+            'statusCode' => '',
+            'message' => '',
+        ];
 
         // Iterate through URLs
         foreach ($monitoredSite->getUrlsAsArray() as $url) {
             // Check for URL error
-            $hasErrors = $this->checkUrl($url);
+            $statusArray = $this->checkUrl($url);
 
             // If the URL has errors, we can go ahead and break
-            if ($hasErrors) {
+            if (! $statusArray['up']) {
+                $hasErrors = true;
                 break;
             }
         }
 
         // Get the latest site incident
-        $latestIncident = SiteIncident::where('monitored_site_id', $monitoredSite->id)
+        $latestIncident = (new SiteIncident)->where('monitored_site_id', $monitoredSite->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -90,6 +96,8 @@ class CheckSitesController
                 $latestIncident = new SiteIncident();
                 $latestIncident->monitored_site_id = $monitoredSite->id;
                 $latestIncident->event_type = 'down';
+                $latestIncident->status_code = $statusArray['statusCode'];
+                $latestIncident->message = $statusArray['message'];
                 $latestIncident->save();
                 $monitoredSite->has_error = true;
 
@@ -112,6 +120,8 @@ class CheckSitesController
             $latestIncident = new SiteIncident();
             $latestIncident->monitored_site_id = $monitoredSite->id;
             $latestIncident->event_type = 'up';
+            $latestIncident->status_code = $statusArray['statusCode'];
+            $latestIncident->message = $statusArray['message'];
             $latestIncident->save();
 
             $monitoredSite->pending_error = false;
@@ -134,23 +144,38 @@ class CheckSitesController
     /**
      * Check a URL
      * @param string $url
-     * @return bool Returns true if site does not have 200 status
+     * @return array Returns array of status
      */
-    public function checkUrl($url)
+    private function checkUrl($url)
     {
+        $return = [
+            'up' => true,
+            'statusCode' => '',
+            'message' => '',
+        ];
+
         try {
-            // Get a new Guzzle client
             $client = new Client([
                 'http_errors' => false
             ]);
 
-            // Get the URL
             $response = $client->get($url);
 
-            // Return true if errors, false if no errors
-            return $response->getStatusCode() !== 200;
+            $statusCode = $response->getStatusCode();
+            $hasErrors = $response->getStatusCode() !== 200;
+
+            $return['statusCode'] = $statusCode;
+            $return['message'] = "The URL \"{$url}\" returned a status of {$statusCode}";
+
+            if ($hasErrors) {
+                $return['up'] = false;
+            }
+
+            return $return;
         } catch (\Exception $e) {
-            return true;
+            $return['up'] = false;
+            $return['message'] = "A Guzzle Exception Occurred: {$e->getMessage()}";
+            return $return;
         }
     }
 
