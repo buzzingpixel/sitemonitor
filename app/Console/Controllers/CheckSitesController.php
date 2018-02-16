@@ -28,7 +28,7 @@ class CheckSitesController
     public function __construct()
     {
         $this->consoleOutput = new ConsoleOutput();
-        $this->emails = NotificationEmail::orderBy('email', 'asc')->get();
+        $this->emails = (new NotificationEmail)->orderBy('email', 'asc')->get();
     }
 
     /**
